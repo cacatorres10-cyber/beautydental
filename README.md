@@ -44,29 +44,36 @@ public/brand/       → hero-bg.svg + favicon.svg (assets locales)
 
 ---
 
-## 🖼️ Cómo cambiar las fotos (trocar as fotos)
+## 🖼️ Cómo poner las fotos reales (trocar as fotos)
 
-**Todas las imágenes se definen en `lib/content.ts`**, dentro del objeto `IMAGES`.
+**No hay que tocar código.** Sube las fotos a la carpeta **`public/images/`** con
+estos nombres y el sitio las usa automáticamente:
 
-1. Sube las fotos reales de la clínica a `public/images/` (o usa un enlace externo).
-2. Cambia las URLs en `IMAGES`. Ejemplo:
+| Archivo | Qué foto |
+|---|---|
+| `hero.jpg` | La foto principal (se expande al hacer scroll) |
+| `doctor.jpg` | Retrato de la Dra. Silvestre |
+| `intro.jpg` | Piel radiante / atención en la clínica |
+| `smile.jpg` | Antes/después o primer plano de una sonrisa |
+| `clinica.jpg` | Interior de la clínica |
+| `gallery-1.jpg` … `gallery-8.jpg` | Fotos del carrusel |
+| `avatar-1.jpg` … `avatar-4.jpg` | Fotos de los testimonios (opcional) |
 
-```ts
-export const IMAGES = {
-  heroMedia: "/images/mi-sonrisa.jpg",     // foto que se expande en el hero
-  doctor:    "/images/dra-silvestre.jpg",  // foto de la doctora
-  gallery: [
-    "/images/caso-1.jpg",
-    "/images/caso-2.jpg",
-    // ...
-  ],
-  // ...
-};
-```
+La lista completa con recomendaciones está en **`public/images/_GUIA-FOTOS.md`**.
 
-> 🛡️ **A prueba de fallos:** cada foto pasa por el componente `SmartImage`. Si una URL falla, se muestra un **placeholder dorado elegante** en lugar de una imagen rota. Así el sitio nunca se ve incompleto.
+**Cómo subirlas (elige una):**
+1. **GitHub:** entra a la carpeta `public/images` → *Add file → Upload files* → arrastra las fotos → *Commit*.
+2. **Local:** copia los archivos a `public/images/` y haz commit.
 
-Las fotos actuales son de **Pexels** (solo de muestra). El hero (`heroBg`) usa un SVG local (`public/brand/hero-bg.svg`) que siempre carga.
+> 🛡️ **A prueba de fallos — triple red de seguridad:** cada foto intenta cargar
+> (1) el archivo real de la clínica, (2) si falta, una foto de muestra de Pexels,
+> y (3) si tampoco carga, un **placeholder dorado elegante**. El sitio nunca se ve
+> roto, ni antes ni después de subir las fotos.
+
+¿Prefieres otros nombres o rutas externas? Todo se enlaza en `lib/content.ts`
+(objeto `IMAGES`, y `IMAGE_FALLBACKS` para las fotos de reserva).
+
+El fondo del hero (`heroBg`) usa un SVG local (`public/brand/hero-bg.svg`) que siempre carga.
 
 ---
 

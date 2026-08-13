@@ -2,7 +2,7 @@
 
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { useLang } from "./language-provider";
-import { t, IMAGES, waLink } from "@/lib/content";
+import { t, IMAGES, IMAGE_FALLBACKS, waLink } from "@/lib/content";
 import { MessageCircle, ArrowDown } from "lucide-react";
 
 export function Hero() {
@@ -13,6 +13,7 @@ export function Hero() {
       <ScrollExpandMedia
         mediaType="image"
         mediaSrc={IMAGES.heroMedia}
+        mediaFallbackSrc={IMAGE_FALLBACKS[IMAGES.heroMedia]}
         bgImageSrc={IMAGES.heroBg}
         title={t.hero.title[lang]}
         date={t.hero.eyebrow[lang]}

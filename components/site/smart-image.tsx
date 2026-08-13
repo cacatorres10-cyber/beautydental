@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { IMAGE_FALLBACKS } from "@/lib/content";
 
 type SmartImageProps = {
   src: string;
@@ -25,7 +26,19 @@ export function SmartImage({
   priority,
   label,
 }: SmartImageProps) {
+  // Try the clinic's own photo first, then the stock stand-in, then the
+  // branded placeholder below — so a missing file never shows as broken.
+  const [current, setCurrent] = useState(src);
   const [failed, setFailed] = useState(false);
+
+  const handleError = () => {
+    const fallback = IMAGE_FALLBACKS[src];
+    if (fallback && current !== fallback) {
+      setCurrent(fallback);
+      return;
+    }
+    setFailed(true);
+  };
 
   if (failed) {
     return (
@@ -63,10 +76,10 @@ export function SmartImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={src}
+      src={current}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
-      onError={() => setFailed(true)}
+      onError={handleError}
       className={cn("h-full w-full object-cover", imgClassName)}
     />
   );

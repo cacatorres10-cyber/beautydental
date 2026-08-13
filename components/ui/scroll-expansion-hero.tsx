@@ -13,6 +13,8 @@ import { motion } from "framer-motion";
 interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
   mediaSrc: string;
+  /** Shown if `mediaSrc` fails to load (e.g. the real photo isn't added yet). */
+  mediaFallbackSrc?: string;
   posterSrc?: string;
   bgImageSrc: string;
   title?: string;
@@ -25,6 +27,7 @@ interface ScrollExpandMediaProps {
 const ScrollExpandMedia = ({
   mediaType = "video",
   mediaSrc,
+  mediaFallbackSrc,
   posterSrc,
   bgImageSrc,
   title,
@@ -38,7 +41,7 @@ const ScrollExpandMedia = ({
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState<boolean>(false);
   const [touchStartY, setTouchStartY] = useState<number>(0);
   const [isMobileState, setIsMobileState] = useState<boolean>(false);
-  const [mediaError, setMediaError] = useState<boolean>(false);
+  const [mediaCurrent, setMediaCurrent] = useState<string>(mediaSrc);
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -47,6 +50,10 @@ const ScrollExpandMedia = ({
     setShowContent(false);
     setMediaFullyExpanded(false);
   }, [mediaType]);
+
+  useEffect(() => {
+    setMediaCurrent(mediaSrc);
+  }, [mediaSrc]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -269,9 +276,15 @@ const ScrollExpandMedia = ({
                   <div className="relative w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={mediaError ? "/brand/hero-bg.svg" : mediaSrc}
+                      src={mediaCurrent}
                       alt={title || "Media content"}
-                      onError={() => setMediaError(true)}
+                      onError={() => {
+                        if (mediaFallbackSrc && mediaCurrent !== mediaFallbackSrc) {
+                          setMediaCurrent(mediaFallbackSrc);
+                        } else {
+                          setMediaCurrent("/brand/hero-bg.svg");
+                        }
+                      }}
                       className="w-full h-full object-cover rounded-xl"
                     />
 

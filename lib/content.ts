@@ -38,30 +38,60 @@ export const waLink = (text: string) =>
 const px = (id: number, w = 1260) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
 
+/**
+ * Drop the clinic's real photos into `public/images/` using the file names
+ * listed in `public/images/_GUIA-FOTOS.md` and they are picked up automatically
+ * — each entry tries the local file first and falls back to the stock photo,
+ * so the site looks complete before and after the swap.
+ */
 export const IMAGES = {
   heroBg: "/brand/hero-bg.svg", // local, always renders
-  heroMedia: px(3762453, 1400), // radiant smile / dental
-  intro: px(3985360, 1200),
-  smileShowcase: px(6528856, 1600),
-  doctor: px(5215024, 1000), // portrait — replace with Dra. Silvestre
-  ctaBg: px(3997379, 1600),
+  heroMedia: "/images/hero.jpg",
+  intro: "/images/intro.jpg",
+  smileShowcase: "/images/smile.jpg",
+  doctor: "/images/doctor.jpg", // portrait — Dra. Silvestre
+  ctaBg: "/images/clinica.jpg",
   services: {
     dental: px(3845810, 900),
     skin: px(3738349, 900),
   },
   gallery: [
-    px(3762453, 700),
-    px(3985360, 700),
-    px(6528856, 700),
-    px(3738349, 700),
-    px(3997379, 700),
-    px(3845810, 700),
-    px(4270091, 700),
-    px(3762800, 700),
-    px(4269692, 700),
-    px(6663571, 700),
+    "/images/gallery-1.jpg",
+    "/images/gallery-2.jpg",
+    "/images/gallery-3.jpg",
+    "/images/gallery-4.jpg",
+    "/images/gallery-5.jpg",
+    "/images/gallery-6.jpg",
+    "/images/gallery-7.jpg",
+    "/images/gallery-8.jpg",
   ],
-  avatars: [px(774909, 200), px(415829, 200), px(1181686, 200), px(762020, 200)],
+  avatars: [
+    "/images/avatar-1.jpg",
+    "/images/avatar-2.jpg",
+    "/images/avatar-3.jpg",
+    "/images/avatar-4.jpg",
+  ],
+};
+
+/** Stock photo shown while a local file in `public/images/` is still missing. */
+export const IMAGE_FALLBACKS: Record<string, string> = {
+  "/images/hero.jpg": px(3762453, 1400),
+  "/images/intro.jpg": px(3985360, 1200),
+  "/images/smile.jpg": px(6528856, 1600),
+  "/images/doctor.jpg": px(5215024, 1000),
+  "/images/clinica.jpg": px(3997379, 1600),
+  "/images/gallery-1.jpg": px(3762453, 700),
+  "/images/gallery-2.jpg": px(3985360, 700),
+  "/images/gallery-3.jpg": px(6528856, 700),
+  "/images/gallery-4.jpg": px(3738349, 700),
+  "/images/gallery-5.jpg": px(3997379, 700),
+  "/images/gallery-6.jpg": px(3845810, 700),
+  "/images/gallery-7.jpg": px(4270091, 700),
+  "/images/gallery-8.jpg": px(3762800, 700),
+  "/images/avatar-1.jpg": px(774909, 200),
+  "/images/avatar-2.jpg": px(415829, 200),
+  "/images/avatar-3.jpg": px(1181686, 200),
+  "/images/avatar-4.jpg": px(762020, 200),
 };
 
 /* ------------------------------ Icons map ------------------------------ */
