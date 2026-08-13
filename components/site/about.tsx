@@ -30,13 +30,8 @@ export function About() {
                   className="h-full w-full"
                   label="Dra. Silvestre"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 text-white">
-                  <div className="font-serif text-2xl">{t.about.title[lang]}</div>
-                  <div className="text-xs uppercase tracking-[0.25em] text-gold-light">
-                    {t.about.role[lang]}
-                  </div>
-                </div>
+                {/* The clinic's portrait already carries her name and title,
+                    so no caption overlay here — it would just repeat it. */}
               </div>
             </div>
           </Reveal>

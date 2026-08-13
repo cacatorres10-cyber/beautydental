@@ -392,8 +392,8 @@ export const t = {
   },
   footer: {
     tagline: {
-      es: "Odontología estética y estética facial en La Romana.",
-      en: "Aesthetic dentistry and facial care in La Romana.",
+      es: "Odontología estética y armonización facial en La Romana.",
+      en: "Aesthetic dentistry and facial harmonization in La Romana.",
     },
     rights: { es: "Todos los derechos reservados.", en: "All rights reserved." },
     nav: { es: "Navegación", en: "Navigation" },

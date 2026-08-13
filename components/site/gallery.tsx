@@ -11,7 +11,9 @@ function Slide({ src, alt }: { src: string; alt: string }) {
   return (
     // Square frames suit the vertically-stacked before/after photos.
     <div className="aspect-square w-[230px] md:w-[290px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-ink/5 shadow-lg">
-      <SmartImage src={src} alt={alt} className="h-full w-full" />
+      {/* The marquee moves by transform, which makes lazy-loading unreliable
+          here — tiles would stay blank. The photos are small, so load them. */}
+      <SmartImage src={src} alt={alt} className="h-full w-full" priority />
     </div>
   );
 }

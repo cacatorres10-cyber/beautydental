@@ -167,8 +167,12 @@ const ScrollExpandMedia = ({
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
-  const mediaHeight = 400 + scrollProgress * (isMobileState ? 200 : 400);
+  // The media keeps a 16:9 frame the whole way, so a widescreen banner reads
+  // correctly both as the small opening card and once it fills the screen.
+  const startWidth = isMobileState ? 300 : 460;
+  const endWidth = isMobileState ? 940 : 1680;
+  const mediaWidth = startWidth + scrollProgress * (endWidth - startWidth);
+  const mediaHeight = (mediaWidth * 9) / 16;
   const textTranslateX = scrollProgress * (isMobileState ? 180 : 150);
 
   const firstWord = title ? title.split(" ")[0] : "";
