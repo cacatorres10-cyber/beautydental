@@ -20,7 +20,7 @@ import { Reveal } from "./reveal";
 import {
   t,
   DENTAL_SERVICES,
-  SKIN_SERVICES,
+  FACIAL_SERVICES,
   waLink,
   type IconName,
   type Lang,
@@ -131,7 +131,7 @@ export function Services() {
         <div className="mt-20">
           <GroupHeading label={t.services.skin[lang]} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SKIN_SERVICES.map((s, i) => (
+            {FACIAL_SERVICES.map((s, i) => (
               <ServiceCard key={i} service={s} index={i} lang={lang} />
             ))}
           </div>

@@ -15,6 +15,11 @@ export const CONTACT = {
   brand: "Beauty Dental & Skin",
   brandShort: "Beauty Dental & Skin",
   monogram: "BDS",
+  doctor: "Dra. Sindy Silvestre",
+  specialty: {
+    es: "Odontología Estética y Armonización Facial",
+    en: "Aesthetic Dentistry & Facial Harmonization",
+  },
   phones: ["+1 (809) 349-0774", "+1 (849) 260-8631"],
   // wa.me number in international format, digits only.
   whatsapp: "18093490774",
@@ -167,45 +172,53 @@ export const DENTAL_SERVICES: ServiceItem[] = [
   },
 ];
 
-export const SKIN_SERVICES: ServiceItem[] = [
-  {
-    icon: "Droplets",
-    title: { es: "Limpieza Facial Profunda", en: "Deep Facial Cleansing" },
-    desc: {
-      es: "Higiene facial que renueva, purifica e ilumina tu piel al instante.",
-      en: "A facial that renews, purifies and instantly brightens your skin.",
-    },
-  },
-  {
-    icon: "Flower2",
-    title: { es: "Rejuvenecimiento Facial", en: "Facial Rejuvenation" },
-    desc: {
-      es: "Protocolos avanzados para una piel firme, luminosa y con menos líneas.",
-      en: "Advanced protocols for firm, luminous skin with fewer fine lines.",
-    },
-  },
+export const FACIAL_SERVICES: ServiceItem[] = [
   {
     icon: "Syringe",
     title: { es: "Toxina Botulínica", en: "Botulinum Toxin" },
     desc: {
-      es: "Suaviza arrugas de expresión conservando tu naturalidad.",
-      en: "Softens expression lines while keeping you looking natural.",
+      es: "Suaviza arrugas de expresión y rejuvenece tu mirada conservando tu naturalidad.",
+      en: "Softens expression lines and refreshes your look while keeping you natural.",
     },
   },
   {
     icon: "Wand2",
-    title: { es: "Rellenos con Ácido Hialurónico", en: "Hyaluronic Fillers" },
+    title: { es: "Rellenos con Ácido Hialurónico", en: "Hyaluronic Acid Fillers" },
     desc: {
-      es: "Volumen, contorno e hidratación para labios y rostro.",
-      en: "Volume, contour and hydration for lips and face.",
+      es: "Volumen, contorno e hidratación para devolver frescura a tu rostro.",
+      en: "Volume, contour and hydration to bring freshness back to your face.",
+    },
+  },
+  {
+    icon: "Sparkles",
+    title: { es: "Armonización Orofacial", en: "Orofacial Harmonization" },
+    desc: {
+      es: "Equilibramos las proporciones de tu rostro para un resultado armónico y natural.",
+      en: "We balance your facial proportions for a harmonious, natural result.",
+    },
+  },
+  {
+    icon: "Flower2",
+    title: { es: "Diseño de Labios", en: "Lip Design" },
+    desc: {
+      es: "Labios definidos, hidratados y proporcionales a tu rostro.",
+      en: "Defined, hydrated lips in proportion with your face.",
     },
   },
   {
     icon: "HeartPulse",
-    title: { es: "Bioestimulación & Skincare", en: "Bio-stimulation & Skincare" },
+    title: { es: "Bioestimuladores de Colágeno", en: "Collagen Bio-stimulators" },
     desc: {
-      es: "Estimula el colágeno y define una rutina hecha para tu piel.",
-      en: "Boosts collagen and builds a routine made for your skin.",
+      es: "Estimulan tu propio colágeno para una piel firme y luminosa a largo plazo.",
+      en: "Stimulate your own collagen for firm, luminous skin over the long term.",
+    },
+  },
+  {
+    icon: "Droplets",
+    title: { es: "Limpieza Facial & Skincare", en: "Facial Cleansing & Skincare" },
+    desc: {
+      es: "Higiene facial profunda y una rutina diseñada para tu tipo de piel.",
+      en: "Deep facial cleansing and a routine designed for your skin type.",
     },
   },
 ];
@@ -273,12 +286,12 @@ export const t = {
     title: { es: "Sonrisas Radiantes", en: "Radiant Smiles" },
     scroll: { es: "Desliza para descubrir", en: "Scroll to discover" },
     lead: {
-      es: "Odontología estética y estética facial de lujo. Donde tu sonrisa y tu piel brillan juntas.",
-      en: "Luxury aesthetic dentistry and facial care. Where your smile and skin shine together.",
+      es: "Diseño de sonrisa y armonización facial. Donde tu sonrisa y tu rostro se equilibran.",
+      en: "Smile design and facial harmonization. Where your smile and your face come into balance.",
     },
     body: {
-      es: "En Beauty Dental & Skin unimos arte, ciencia y calidez para revelar tu versión más segura. Cada tratamiento es diseñado a la medida de tu rostro y de tus metas.",
-      en: "At Beauty Dental & Skin we blend art, science and warmth to reveal your most confident self. Every treatment is tailored to your face and your goals.",
+      es: "En Beauty Dental & Skin unimos odontología estética y armonización facial para revelar tu versión más segura. Cada tratamiento es diseñado a la medida de tu rostro y de tus metas.",
+      en: "At Beauty Dental & Skin we combine aesthetic dentistry and facial harmonization to reveal your most confident self. Every treatment is tailored to your face and your goals.",
     },
     primary: { es: "Reservar por WhatsApp", en: "Book on WhatsApp" },
     secondary: { es: "Ver servicios", en: "Explore services" },
@@ -286,12 +299,12 @@ export const t = {
   intro: {
     eyebrow: { es: "Nuestra filosofía", en: "Our philosophy" },
     title: {
-      es: "Diseñamos sonrisas que transforman rostros y elevan la confianza.",
-      en: "We design smiles that transform faces and elevate confidence.",
+      es: "La sonrisa y el rostro se diseñan juntos, nunca por separado.",
+      en: "The smile and the face are designed together, never apart.",
     },
     body: {
-      es: "Creemos que la belleza real nace de la salud y del detalle. Por eso combinamos odontología de precisión con estética facial avanzada, en un espacio pensado para que te sientas cuidada de principio a fin.",
-      en: "We believe real beauty is born from health and detail. That is why we combine precision dentistry with advanced facial aesthetics, in a space designed to care for you from start to finish.",
+      es: "Creemos que la belleza real nace del equilibrio. Por eso la Dra. Sindy Silvestre combina odontología de precisión con armonización facial: cada sonrisa se proyecta en armonía con tus proporciones, y cada tratamiento facial respeta tu expresión natural.",
+      en: "We believe real beauty is born from balance. That is why Dr. Sindy Silvestre combines precision dentistry with facial harmonization: every smile is planned in harmony with your proportions, and every facial treatment respects your natural expression.",
     },
   },
   services: {
@@ -299,10 +312,10 @@ export const t = {
     title: { es: "Tratamientos", en: "Treatments" },
     titleAccent: { es: "a tu medida", en: "made for you" },
     dental: { es: "Odontología Estética", en: "Aesthetic Dentistry" },
-    skin: { es: "Estética Facial & Skin", en: "Facial Aesthetics & Skin" },
+    skin: { es: "Armonización Facial", en: "Facial Harmonization" },
     subtitle: {
-      es: "Dos especialidades, un mismo objetivo: que te veas y te sientas espectacular.",
-      en: "Two specialties, one goal: to make you look and feel spectacular.",
+      es: "Dos especialidades que trabajan juntas: tu sonrisa y la armonía de tu rostro.",
+      en: "Two specialties that work as one: your smile and the harmony of your face.",
     },
     cta: { es: "Consultar tratamiento", en: "Ask about this" },
   },
@@ -316,28 +329,31 @@ export const t = {
     },
   },
   gallery: {
-    eyebrow: { es: "Galería", en: "Gallery" },
-    title: { es: "Resultados que hablan por sí solos", en: "Results that speak for themselves" },
+    eyebrow: { es: "Casos reales", en: "Real cases" },
+    title: { es: "Antes y después", en: "Before & after" },
     body: {
-      es: "Un vistazo a nuestro trabajo y a nuestro espacio. Pronto, con las fotos reales de la clínica.",
-      en: "A glimpse of our work and our space. Soon, with the clinic's real photos.",
+      es: "Resultados reales de nuestros pacientes. Cada caso es único y se planifica de forma personalizada.",
+      en: "Real results from our patients. Every case is unique and planned individually.",
     },
   },
   about: {
     eyebrow: { es: "Conoce a tu especialista", en: "Meet your specialist" },
-    title: { es: "Dra. Silvestre", en: "Dr. Silvestre" },
-    role: { es: "Odontóloga estética · Fundadora", en: "Aesthetic dentist · Founder" },
+    title: { es: "Dra. Sindy Silvestre", en: "Dr. Sindy Silvestre" },
+    role: {
+      es: "Odontología Estética y Armonización Facial",
+      en: "Aesthetic Dentistry & Facial Harmonization",
+    },
     body1: {
-      es: "Apasionada por el detalle y por el bienestar de cada paciente, la Dra. Silvestre lidera Beauty Dental & Skin con una visión clara: unir salud, arte y elegancia en cada tratamiento.",
-      en: "Passionate about detail and each patient's wellbeing, Dr. Silvestre leads Beauty Dental & Skin with a clear vision: to unite health, art and elegance in every treatment.",
+      es: "Con experiencia en diseños de sonrisas y estética facial, la Dra. Sindy Silvestre lidera Beauty Dental & Skin con una visión clara: unir salud, arte y equilibrio en cada tratamiento.",
+      en: "With experience in smile design and facial aesthetics, Dr. Sindy Silvestre leads Beauty Dental & Skin with a clear vision: to unite health, art and balance in every treatment.",
     },
     body2: {
-      es: "Su enfoque personalizado y su calidez han convertido a la clínica en un referente de estética dental y facial en La Romana.",
-      en: "Her personalized approach and warmth have made the clinic a reference for dental and facial aesthetics in La Romana.",
+      es: "Su mirada integral —donde la sonrisa y la armonía del rostro se planifican juntas— y su trato cercano la han convertido en un referente de la estética dental y facial en La Romana.",
+      en: "Her integrated approach — where the smile and facial harmony are planned together — and her warm care have made her a reference for dental and facial aesthetics in La Romana.",
     },
     note: {
-      es: "* Foto y biografía de ejemplo — reemplázalas por las reales.",
-      en: "* Sample photo and bio — replace with the real ones.",
+      es: "",
+      en: "",
     },
   },
   testimonials: {

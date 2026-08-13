@@ -69,7 +69,9 @@ export function About() {
               ))}
             </div>
 
-            <p className="mt-8 text-xs italic text-ink/35">{t.about.note[lang]}</p>
+            {t.about.note[lang] ? (
+              <p className="mt-8 text-xs italic text-ink/35">{t.about.note[lang]}</p>
+            ) : null}
           </Reveal>
         </div>
       </div>

@@ -4,27 +4,31 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://beautydentalskin.example"),
   title: {
-    default: "Beauty Dental & Skin — Odontología estética y facial | La Romana",
+    default:
+      "Beauty Dental & Skin — Odontología Estética y Armonización Facial | La Romana",
     template: "%s · Beauty Dental & Skin",
   },
   description:
-    "Clínica de odontología estética y estética facial en La Romana, República Dominicana. Diseño de sonrisa, carillas, blanqueamiento, ortodoncia, implantes y tratamientos de piel. Aesthetic dentistry and facial care.",
+    "Dra. Sindy Silvestre — Odontología estética y armonización facial en La Romana, República Dominicana. Diseño de sonrisa, carillas, blanqueamiento, implantes, toxina botulínica y rellenos con ácido hialurónico.",
   keywords: [
     "odontología estética",
+    "armonización facial",
     "diseño de sonrisa",
     "carillas dentales",
     "blanqueamiento dental",
+    "toxina botulínica",
+    "ácido hialurónico",
     "estética facial",
+    "Dra. Sindy Silvestre",
     "La Romana",
     "República Dominicana",
     "Beauty Dental Skin",
-    "aesthetic dentistry",
   ],
   authors: [{ name: "Beauty Dental & Skin" }],
   openGraph: {
     title: "Beauty Dental & Skin — La Romana",
     description:
-      "Odontología estética y estética facial de lujo en La Romana, República Dominicana.",
+      "Odontología estética y armonización facial en La Romana, República Dominicana. Dra. Sindy Silvestre.",
     type: "website",
     locale: "es_DO",
   },

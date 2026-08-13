@@ -8,7 +8,8 @@ import { t, IMAGES } from "@/lib/content";
 
 function Slide({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="aspect-[4/5] w-[210px] md:w-[260px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-ink/5 shadow-lg">
+    // Square frames suit the vertically-stacked before/after photos.
+    <div className="aspect-square w-[230px] md:w-[290px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-ink/5 shadow-lg">
       <SmartImage src={src} alt={alt} className="h-full w-full" />
     </div>
   );
