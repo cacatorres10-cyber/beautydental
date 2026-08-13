@@ -132,7 +132,10 @@ export type IconName =
 type ServiceItem = {
   icon: IconName;
   title: Record<Lang, string>;
+  /** One line on the closed card. */
   desc: Record<Lang, string>;
+  /** Shown when the visitor opens the card. */
+  details: Record<Lang, string>;
 };
 
 export const DENTAL_SERVICES: ServiceItem[] = [
@@ -143,6 +146,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
       es: "Planificación digital para crear la sonrisa que armoniza con tu rostro.",
       en: "Digital planning to craft the smile that harmonizes with your face.",
     },
+    details: {
+      es: "Estudiamos tus proporciones faciales, el color de tu piel y la forma de tus labios para proyectar la sonrisa que te queda mejor. Verás una simulación antes de tocar un solo diente, y decidimos juntas cada detalle.",
+      en: "We study your facial proportions, skin tone and lip shape to plan the smile that suits you best. You see a simulation before a single tooth is touched, and we decide every detail together.",
+    },
   },
   {
     icon: "Gem",
@@ -150,6 +157,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Porcelana ultrafina para una sonrisa natural, brillante y duradera.",
       en: "Ultra-thin porcelain for a natural, radiant and lasting smile.",
+    },
+    details: {
+      es: "Láminas de porcelana ultrafinas que corrigen color, forma, tamaño y pequeños espacios entre dientes. Son resistentes a las manchas y, bien cuidadas, duran muchos años sin perder brillo.",
+      en: "Ultra-thin porcelain layers that correct color, shape, size and small gaps between teeth. They resist staining and, cared for properly, last for years without losing their shine.",
     },
   },
   {
@@ -159,6 +170,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
       es: "Recupera el blanco natural de tus dientes de forma segura y controlada.",
       en: "Restore your teeth's natural whiteness safely and comfortably.",
     },
+    details: {
+      es: "Aclaramos varios tonos con geles profesionales y controlamos la sensibilidad durante todo el proceso. Ideal antes de un evento o como primer paso de un diseño de sonrisa.",
+      en: "We lighten several shades with professional gels and manage sensitivity throughout. Ideal before an event, or as the first step of a smile design.",
+    },
   },
   {
     icon: "AlignHorizontalDistributeCenter",
@@ -166,6 +181,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Brackets estéticos y alineadores invisibles para una mordida perfecta.",
       en: "Aesthetic braces and invisible aligners for a perfect bite.",
+    },
+    details: {
+      es: "Alineamos tus dientes con brackets estéticos o con alineadores transparentes, casi invisibles y removibles. Planificamos el recorrido completo para que sepas cuánto tiempo tomará.",
+      en: "We align your teeth with aesthetic braces or clear aligners — nearly invisible and removable. We map the full path so you know how long it will take.",
     },
   },
   {
@@ -175,6 +194,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
       es: "Reemplazo fijo y natural de piezas ausentes con tecnología de precisión.",
       en: "Fixed, natural replacement of missing teeth with precision technology.",
     },
+    details: {
+      es: "Reponemos la pieza perdida con un implante de titanio y una corona hecha a la medida de tu boca. Recuperas la mordida, el habla y la confianza para sonreír sin taparte.",
+      en: "We replace the missing tooth with a titanium implant and a crown made to match your mouth. You get back your bite, your speech and the confidence to smile openly.",
+    },
   },
   {
     icon: "Stethoscope",
@@ -182,6 +205,10 @@ export const DENTAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Prevención, limpieza y salud bucal para toda la familia.",
       en: "Prevention, cleaning and oral health for the whole family.",
+    },
+    details: {
+      es: "Limpiezas, resinas, tratamiento de caries y revisiones periódicas para toda la familia. La base de cualquier tratamiento estético es una boca sana.",
+      en: "Cleanings, fillings, cavity treatment and regular check-ups for the whole family. A healthy mouth is the foundation of any aesthetic treatment.",
     },
   },
 ];
@@ -194,6 +221,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
       es: "Suaviza arrugas de expresión y rejuvenece tu mirada conservando tu naturalidad.",
       en: "Softens expression lines and refreshes your look while keeping you natural.",
     },
+    details: {
+      es: "Relaja de forma puntual los músculos que marcan las líneas de expresión en frente, entrecejo y contorno de ojos. El resultado se ve a los pocos días y conserva tus gestos naturales.",
+      en: "Selectively relaxes the muscles that create expression lines on the forehead, brow and around the eyes. Results show within days and your natural expressions stay intact.",
+    },
   },
   {
     icon: "Wand2",
@@ -201,6 +232,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Volumen, contorno e hidratación para devolver frescura a tu rostro.",
       en: "Volume, contour and hydration to bring freshness back to your face.",
+    },
+    details: {
+      es: "Reponemos volumen donde el rostro lo ha perdido: pómulos, surcos, ojeras y mentón. Es una sustancia que tu cuerpo reconoce, y el resultado es inmediato y reversible.",
+      en: "We restore volume where the face has lost it: cheeks, folds, under-eyes and chin. It is a substance your body recognizes, and the result is immediate and reversible.",
     },
   },
   {
@@ -210,6 +245,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
       es: "Equilibramos las proporciones de tu rostro para un resultado armónico y natural.",
       en: "We balance your facial proportions for a harmonious, natural result.",
     },
+    details: {
+      es: "Un plan que mira el rostro completo en vez de tratar una zona aislada. Combinamos los procedimientos necesarios para equilibrar proporciones y que todo converse con tu sonrisa.",
+      en: "A plan that looks at the whole face instead of treating one isolated area. We combine the procedures needed to balance proportions so everything works with your smile.",
+    },
   },
   {
     icon: "Flower2",
@@ -217,6 +256,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Labios definidos, hidratados y proporcionales a tu rostro.",
       en: "Defined, hydrated lips in proportion with your face.",
+    },
+    details: {
+      es: "Definimos el borde, hidratamos y ajustamos la proporción entre labio superior e inferior. Buscamos labios que se vean tuyos, no rellenos de más.",
+      en: "We define the border, hydrate, and adjust the proportion between upper and lower lip. The goal is lips that look like yours, never overfilled.",
     },
   },
   {
@@ -226,6 +269,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
       es: "Estimulan tu propio colágeno para una piel firme y luminosa a largo plazo.",
       en: "Stimulate your own collagen for firm, luminous skin over the long term.",
     },
+    details: {
+      es: "En lugar de rellenar, estimulan a tu piel a producir su propio colágeno. La mejora aparece de forma gradual y la firmeza se sostiene durante meses.",
+      en: "Instead of filling, they prompt your skin to produce its own collagen. The improvement appears gradually and the firmness holds for months.",
+    },
   },
   {
     icon: "Droplets",
@@ -233,6 +280,10 @@ export const FACIAL_SERVICES: ServiceItem[] = [
     desc: {
       es: "Higiene facial profunda y una rutina diseñada para tu tipo de piel.",
       en: "Deep facial cleansing and a routine designed for your skin type.",
+    },
+    details: {
+      es: "Higiene profunda que retira impurezas y células muertas, seguida de activos según tu tipo de piel. Terminas con una rutina de casa hecha para ti, no genérica.",
+      en: "A deep cleanse that clears impurities and dead cells, followed by actives matched to your skin type. You leave with a home routine built for you, not a generic one.",
     },
   },
 ];
@@ -310,7 +361,8 @@ export const t = {
       es: "Dos especialidades que trabajan juntas: tu sonrisa y la armonía de tu rostro.",
       en: "Two specialties that work as one: your smile and the harmony of your face.",
     },
-    cta: { es: "Consultar tratamiento", en: "Ask about this" },
+    cta: { es: "Consultar por WhatsApp", en: "Ask on WhatsApp" },
+    hint: { es: "Toca un tratamiento para ver más", en: "Tap a treatment to see more" },
   },
   showcase: {
     eyebrow: { es: "Diseño de sonrisa digital", en: "Digital smile design" },

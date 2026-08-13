@@ -182,7 +182,7 @@ const ScrollExpandMedia = ({
 
   // The media keeps a 16:9 frame the whole way, so a widescreen banner reads
   // correctly both as the small opening card and once it fills the screen.
-  const startWidth = isMobileState ? 300 : 460;
+  const startWidth = isMobileState ? 340 : 460;
   const endWidth = isMobileState ? 940 : 1680;
   const mediaWidth = startWidth + scrollProgress * (endWidth - startWidth);
   const mediaHeight = (mediaWidth * 9) / 16;
@@ -220,8 +220,9 @@ const ScrollExpandMedia = ({
           <div className="container mx-auto flex flex-col items-center justify-start relative z-10">
             <div className="flex flex-col items-center justify-center w-full h-[100dvh] relative">
               <div
-                className="absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl ring-1 ring-gold/30"
+                className="absolute z-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl ring-1 ring-gold/30"
                 style={{
+                  top: isMobileState && scrollProgress < 0.35 ? "64%" : "50%",
                   width: `${mediaWidth}px`,
                   height: `${mediaHeight}px`,
                   maxWidth: "95vw",
@@ -337,15 +338,19 @@ const ScrollExpandMedia = ({
                 className={`flex items-center justify-center text-center gap-2 md:gap-4 w-full relative z-10 transition-none flex-col ${
                   textBlend ? "mix-blend-difference" : "mix-blend-normal"
                 }`}
+                style={{
+                  marginBottom:
+                    isMobileState && scrollProgress < 0.35 ? "40vh" : 0,
+                }}
               >
                 <motion.h2
-                  className="text-5xl md:text-6xl lg:text-8xl font-semibold text-ink font-serif transition-none"
+                  className="text-[2.75rem] sm:text-6xl lg:text-8xl font-semibold text-ink font-serif transition-none leading-[1.05]"
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className="text-5xl md:text-6xl lg:text-8xl font-semibold text-center text-gold-gradient font-serif italic transition-none"
+                  className="text-[2.75rem] sm:text-6xl lg:text-8xl font-semibold text-center text-gold-gradient font-serif italic transition-none leading-[1.05]"
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}
