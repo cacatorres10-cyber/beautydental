@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --ivory: #fbf9f5;
+  --ink: #0f0f0f;
+  --gold: #b8912f;
+  --gold-mid: #c8a24c;
+  --gold-light: #e6c878;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--gold-mid);
+  color: #fff;
+}
+
+/* Elegant thin gold scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f2ece0;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--gold-light), var(--gold));
+  border-radius: 999px;
+  border: 2px solid #f2ece0;
+}
+
+@layer components {
+  /* Shimmering gold text used for accents / headings */
+  .text-gold-gradient {
+    background: linear-gradient(
+      100deg,
+      #a5812f 0%,
+      #c8a24c 20%,
+      #f0d99a 50%,
+      #c8a24c 80%,
+      #a5812f 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shimmer 8s linear infinite;
+  }
+
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(184, 145, 47, 0.55),
+      transparent
+    );
+  }
+
+  /* Gold pill button */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium tracking-wide text-white transition-all duration-300;
+    background: linear-gradient(120deg, #c8a24c, #a5812f);
+    box-shadow: 0 10px 30px -10px rgba(184, 145, 47, 0.6);
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -12px rgba(184, 145, 47, 0.75);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-white/60 px-7 py-3 text-sm font-medium tracking-wide text-ink transition-all duration-300 backdrop-blur hover:border-gold hover:text-gold-deep;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-gold-deep;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* Subtle film grain overlay (very light on white) */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
