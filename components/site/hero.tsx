@@ -10,9 +10,10 @@ export function Hero() {
   const { lang } = useLang();
   const photos = usePhotos();
 
-  // Stock banner first, with the clinic's own composed banner as the last
-  // resort, so the opening never falls back to a broken image.
-  const [banner, ...bannerFallbacks] = [...HERO_BANNERS, photos.hero];
+  // The clinic's own banner leads: a stock URL cannot be checked from here,
+  // and a wrong photo on the opening screen is worse than no stock at all.
+  // Put a URL first in HERO_BANNERS to use a stock photo instead.
+  const [banner, ...bannerFallbacks] = [photos.hero, ...HERO_BANNERS];
 
   return (
     <section id="top" className="relative bg-ivory">

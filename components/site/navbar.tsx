@@ -66,7 +66,7 @@ export function Navbar() {
           </a>
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center rounded-full border border-ink/10 p-2 text-ink"
+            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 text-ink"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -88,7 +88,7 @@ export function Navbar() {
               key={l.id}
               href={`#${l.id}`}
               onClick={() => setOpen(false)}
-              className="py-2.5 text-base text-ink/80 hover:text-gold-deep border-b border-ink/5"
+              className="flex min-h-[48px] items-center text-base text-ink/80 hover:text-gold-deep border-b border-ink/5"
             >
               {t.nav[l.key][lang]}
             </a>

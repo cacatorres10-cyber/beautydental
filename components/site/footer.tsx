@@ -57,7 +57,7 @@ export function Footer() {
                 <li key={l.id}>
                   <a
                     href={`#${l.id}`}
-                    className="text-white/60 hover:text-white transition-colors"
+                    className="inline-flex min-h-[36px] items-center text-white/60 hover:text-white transition-colors"
                   >
                     {t.nav[l.key][lang]}
                   </a>
@@ -73,19 +73,19 @@ export function Footer() {
             <ul className="mt-5 space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Phone size={15} className="text-gold-light/70" />
-                <a href={`tel:${CONTACT.phones[0].replace(/[^\d+]/g, "")}`} className="hover:text-white">
+                <a href={`tel:${CONTACT.phones[0].replace(/[^\d+]/g, "")}`} className="inline-flex min-h-[36px] items-center hover:text-white">
                   {CONTACT.phones[0]}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={15} className="text-gold-light/70" />
-                <a href={`tel:${CONTACT.phones[1].replace(/[^\d+]/g, "")}`} className="hover:text-white">
+                <a href={`tel:${CONTACT.phones[1].replace(/[^\d+]/g, "")}`} className="inline-flex min-h-[36px] items-center hover:text-white">
                   {CONTACT.phones[1]}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={15} className="text-gold-light/70" />
-                <a href={`mailto:${CONTACT.email}`} className="hover:text-white break-all">
+                <a href={`mailto:${CONTACT.email}`} className="inline-flex min-h-[36px] items-center hover:text-white break-all">
                   {CONTACT.email}
                 </a>
               </li>

@@ -23,7 +23,7 @@ export function LanguageToggle({ className }: { className?: string }) {
           type="button"
           onClick={() => setLang(opt)}
           className={cn(
-            "rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors",
+            "rounded-full px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors",
             lang === opt
               ? "bg-gradient-to-br from-gold-light to-gold-deep text-white shadow"
               : "text-ink/60 hover:text-ink"

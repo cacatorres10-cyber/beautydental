@@ -13,6 +13,7 @@ import { VideoTestimonials } from "./video-testimonials";
 import { CtaBand } from "./cta-band";
 import { Contact } from "./contact";
 import { Footer } from "./footer";
+import { WhatsappFab } from "./whatsapp-fab";
 import type { SitePhotos } from "@/lib/photos";
 
 export function SiteShell({
@@ -41,6 +42,7 @@ export function SiteShell({
           <Contact />
         </main>
         <Footer />
+        <WhatsappFab />
       </PhotosProvider>
     </LanguageProvider>
   );
