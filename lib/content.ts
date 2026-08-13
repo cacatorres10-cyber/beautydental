@@ -237,45 +237,24 @@ export const FACIAL_SERVICES: ServiceItem[] = [
   },
 ];
 
-/* ---- SAMPLE testimonials — replace with real reviews from Instagram ---- */
-export const TESTIMONIALS: {
-  name: string;
-  location: Record<Lang, string>;
-  quote: Record<Lang, string>;
-}[] = [
-  {
-    name: "María F.",
-    location: { es: "La Romana", en: "La Romana" },
-    quote: {
-      es: "Mi diseño de sonrisa superó todo lo que imaginé. Trato humano, resultados de lujo.",
-      en: "My smile design exceeded everything I imagined. Warm care, luxury results.",
-    },
+/* ------------------------- Video testimonials --------------------------
+ * Videos are read straight from `public/media/testimonials/` — drop new ones
+ * in and they appear. To label one, add an entry keyed by its file name
+ * (without extension); anything unlabelled simply shows no caption.
+ * --------------------------------------------------------------------- */
+export const VIDEO_CAPTIONS: Record<
+  string,
+  { name: string; role: Record<Lang, string> }
+> = {
+  "01-fernando-abad": {
+    name: "Fernando Abad",
+    role: { es: "Pitcher profesional", en: "Professional pitcher" },
   },
-  {
-    name: "Génesis P.",
-    location: { es: "Higüey", en: "Higüey" },
-    quote: {
-      es: "La limpieza facial me dejó la piel radiante. Ya es mi clínica de confianza.",
-      en: "The facial left my skin glowing. This is now my go-to clinic.",
-    },
+  "02-paciente-sonrisa": {
+    name: "Paciente Beauty",
+    role: { es: "Diseño de sonrisa", en: "Smile design" },
   },
-  {
-    name: "Carlos M.",
-    location: { es: "Santo Domingo", en: "Santo Domingo" },
-    quote: {
-      es: "Profesionalismo total con los implantes. Volví a sonreír sin pensarlo.",
-      en: "Total professionalism with my implants. I smile freely again.",
-    },
-  },
-  {
-    name: "Ana R.",
-    location: { es: "La Romana", en: "La Romana" },
-    quote: {
-      es: "Blanqueamiento impecable y sin sensibilidad. El ambiente es precioso.",
-      en: "Flawless whitening with no sensitivity. The space is gorgeous.",
-    },
-  },
-];
+};
 
 /* ---- Trust stats (PLACEHOLDER numbers — adjust to real figures) ---- */
 export const STATS: { value: string; label: Record<Lang, string> }[] = [
@@ -373,6 +352,11 @@ export const t = {
   testimonials: {
     eyebrow: { es: "Testimonios", en: "Testimonials" },
     title: { es: "Lo que dicen nuestros pacientes", en: "What our patients say" },
+    body: {
+      es: "Historias reales, contadas por quienes ya viven su nueva sonrisa.",
+      en: "Real stories, told by the people already living their new smile.",
+    },
+    play: { es: "Reproducir", en: "Play" },
   },
   ctaBand: {
     title: { es: "¿Lista para tu mejor sonrisa?", en: "Ready for your best smile?" },

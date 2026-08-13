@@ -61,6 +61,22 @@ export type SitePhotos = {
   avatars: string[];
 };
 
+/* ------------------------------- Videos -------------------------------- */
+
+const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov", ".m4v"];
+
+/**
+ * Patient testimonial videos, read from `public/media/testimonials/`.
+ * Same deal as the photos: drop files in, any names, they all show up.
+ */
+export function getTestimonialVideos(): string[] {
+  const dir = path.join(process.cwd(), "public", "media", "testimonials");
+  return readDir(dir)
+    .filter((file) => VIDEO_EXTENSIONS.includes(path.extname(file).toLowerCase()))
+    .sort(naturalSort)
+    .map((file) => `/media/testimonials/${encodeURIComponent(file)}`);
+}
+
 export function getSitePhotos(): SitePhotos {
   return {
     hero: featured("hero"),

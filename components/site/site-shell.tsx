@@ -9,13 +9,19 @@ import { Services } from "./services";
 import { Showcase } from "./showcase";
 import { Gallery } from "./gallery";
 import { About } from "./about";
-import { Testimonials } from "./testimonials";
+import { VideoTestimonials } from "./video-testimonials";
 import { CtaBand } from "./cta-band";
 import { Contact } from "./contact";
 import { Footer } from "./footer";
 import type { SitePhotos } from "@/lib/photos";
 
-export function SiteShell({ photos }: { photos: SitePhotos }) {
+export function SiteShell({
+  photos,
+  testimonialVideos,
+}: {
+  photos: SitePhotos;
+  testimonialVideos: string[];
+}) {
   return (
     <LanguageProvider>
       <PhotosProvider photos={photos}>
@@ -30,7 +36,7 @@ export function SiteShell({ photos }: { photos: SitePhotos }) {
           <Showcase />
           <Gallery />
           <Intro />
-          <Testimonials />
+          <VideoTestimonials videos={testimonialVideos} />
           <CtaBand />
           <Contact />
         </main>
