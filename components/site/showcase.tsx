@@ -3,10 +3,12 @@
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { SmartImage } from "./smart-image";
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { t, IMAGES } from "@/lib/content";
 
 export function Showcase() {
   const { lang } = useLang();
+  const photos = usePhotos();
 
   return (
     <section className="relative bg-white">
@@ -32,7 +34,7 @@ export function Showcase() {
         }
       >
         <SmartImage
-          src={IMAGES.smileShowcase}
+          src={photos.smile}
           alt={t.showcase.eyebrow[lang]}
           className="h-full w-full"
           imgClassName="h-full w-full object-cover"

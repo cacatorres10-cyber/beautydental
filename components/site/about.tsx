@@ -1,6 +1,7 @@
 "use client";
 
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, IMAGES } from "@/lib/content";
@@ -8,6 +9,7 @@ import { BadgeCheck, Heart, Award } from "lucide-react";
 
 export function About() {
   const { lang } = useLang();
+  const photos = usePhotos();
   const chips = [
     { icon: BadgeCheck, es: "Trato personalizado", en: "Personalized care" },
     { icon: Award, es: "Tecnología de precisión", en: "Precision technology" },
@@ -23,7 +25,7 @@ export function About() {
               <div className="absolute -inset-4 rounded-[2.2rem] bg-gradient-to-tr from-gold-light/25 to-transparent blur-2xl" />
               <div className="relative aspect-[4/5] rounded-[2.2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
                 <SmartImage
-                  src={IMAGES.doctor}
+                  src={photos.doctor}
                   alt={t.about.title[lang]}
                   className="h-full w-full"
                   label="Dra. Silvestre"

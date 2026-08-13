@@ -1,38 +1,43 @@
 # 📸 Guía de fotos — Beauty Dental & Skin
 
-Coloca aquí las fotos reales de la clínica. **La forma más simple:** súbelas con
-los nombres de abajo y el sitio las tomará automáticamente. Si prefieres, mándalas
-por el chat / un enlace y yo las conecto por ti.
+**No hace falta renombrar nada.** El sitio lee esta carpeta automáticamente.
 
-> Formato ideal: **JPG** (o WEBP), buena resolución. No hace falta editarlas —
-> yo las encuadro con CSS.
+## 1. Casos (antes/después, sonrisas, armonización facial)
 
-## Fotos principales (recomendadas)
+👉 Arrastra **todas** las fotos a la carpeta **`gallery/`**
 
-| Archivo (nombre exacto) | Qué foto | Orientación |
-|---|---|---|
-| `hero.jpg` | Sonrisa radiante / paciente feliz (la estrella del inicio) | Vertical u horizontal, alta calidad |
-| `doctor.jpg` | Retrato de la **Dra. Silvestre** (bata, sonriendo) | Vertical (4:5) |
-| `intro.jpg` | Piel radiante / momento de atención en la clínica | Vertical (4:5) |
-| `smile.jpg` | Antes/después o primer plano de una sonrisa | Horizontal (16:9) |
-| `clinica.jpg` | Interior de la clínica / recepción | Horizontal, amplia |
+- Los nombres pueden ser los que ya tienen: `IMG_4821.jpg`, `WhatsApp Image 2026-08-13.jpeg`…
+- Pon las que quieras: 5, 20, 50. Todas entran al carrusel.
+- Se ordenan alfabéticamente. ¿Quieres un orden concreto? Ponles un número
+  delante: `01-...`, `02-...`, `03-...`
+- Formatos: `.jpg` `.jpeg` `.png` `.webp` `.avif`
 
-## Galería (carrusel) — de 6 a 12 fotos
+## 2. Fotos destacadas (solo estas llevan nombre fijo)
 
-Nómbralas así: `gallery-1.jpg`, `gallery-2.jpg`, `gallery-3.jpg` … (los números que tengas).
-Ideas: diseños de sonrisa, blanqueamientos, carillas, tratamientos faciales,
-antes/después, el equipo, el espacio.
+Van sueltas en esta carpeta (`public/images/`), **no** dentro de `gallery/`.
+La extensión da igual (`.jpg`, `.jpeg`, `.png`, `.webp`).
 
-## Testimonios (opcional) — foto de cada paciente
+| Nombre | Qué foto |
+|---|---|
+| `doctor` | Retrato de la **Dra. Sindy Silvestre** |
+| `hero` | Foto principal del inicio (se expande al hacer scroll) |
+| `intro` | Momento de atención / piel radiante |
+| `smile` | Primer plano de una sonrisa o un antes/después destacado |
+| `clinica` | Interior de la clínica |
 
-Nómbralas: `avatar-1.jpg`, `avatar-2.jpg` … (cuadradas, tipo perfil).
-Si no las tienes, se muestran las iniciales — sin problema.
+Ejemplo: `doctor.jpeg`, `hero.jpg`, `clinica.png` — todos válidos.
+
+## 3. Testimonios (opcional)
+
+Fotos de pacientes en la carpeta **`avatars/`**, cualquier nombre.
+Si no pones ninguna, se muestran las iniciales.
 
 ---
 
-### ¿Cómo se conectan al sitio?
-Todas las imágenes se enlazan en **`lib/content.ts`** (objeto `IMAGES`).
-Cuando subas las fotos, avísame y actualizo ese archivo para que el sitio use
-`/images/hero.jpg`, `/images/gallery-1.jpg`, etc. Mientras tanto, el sitio usa
-fotos de ejemplo (Pexels) y, si falta alguna, muestra un placeholder dorado
-elegante — nunca se ve roto.
+### ¿Y si aún no subo fotos?
+El sitio muestra fotos de muestra y, si algo falta, un placeholder dorado
+elegante. **Nunca se ve roto** — puedes subir las fotos poco a poco.
+
+### ¿Dónde se configura?
+- Detección automática: `lib/photos.ts`
+- Fotos de muestra y textos: `lib/content.ts`

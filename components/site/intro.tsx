@@ -1,12 +1,14 @@
 "use client";
 
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, STATS, IMAGES } from "@/lib/content";
 
 export function Intro() {
   const { lang } = useLang();
+  const photos = usePhotos();
 
   return (
     <section className="relative bg-white py-24 md:py-32">
@@ -43,7 +45,7 @@ export function Intro() {
               <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold-light/30 to-transparent blur-2xl" />
               <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
                 <SmartImage
-                  src={IMAGES.intro}
+                  src={photos.intro}
                   alt={t.intro.eyebrow[lang]}
                   className="h-full w-full"
                 />

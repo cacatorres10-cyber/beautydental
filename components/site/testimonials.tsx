@@ -2,12 +2,14 @@
 
 import { Quote, Star } from "lucide-react";
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, TESTIMONIALS, IMAGES } from "@/lib/content";
 
 export function Testimonials() {
   const { lang } = useLang();
+  const photos = usePhotos();
 
   return (
     <section id="testimonios" className="relative bg-white py-24 md:py-32">
@@ -43,7 +45,7 @@ export function Testimonials() {
                 <figcaption className="mt-6 flex items-center gap-3">
                   <span className="h-11 w-11 overflow-hidden rounded-full ring-1 ring-gold/30">
                     <SmartImage
-                      src={IMAGES.avatars[i % IMAGES.avatars.length]}
+                      src={photos.avatars[i % photos.avatars.length]}
                       alt={item.name}
                       className="h-full w-full"
                     />

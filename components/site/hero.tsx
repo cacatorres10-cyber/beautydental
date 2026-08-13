@@ -2,18 +2,20 @@
 
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { t, IMAGES, IMAGE_FALLBACKS, waLink } from "@/lib/content";
 import { MessageCircle, ArrowDown } from "lucide-react";
 
 export function Hero() {
   const { lang } = useLang();
+  const photos = usePhotos();
 
   return (
     <section id="top" className="relative bg-ivory">
       <ScrollExpandMedia
         mediaType="image"
-        mediaSrc={IMAGES.heroMedia}
-        mediaFallbackSrc={IMAGE_FALLBACKS[IMAGES.heroMedia]}
+        mediaSrc={photos.hero}
+        mediaFallbackSrc={IMAGE_FALLBACKS[photos.hero]}
         bgImageSrc={IMAGES.heroBg}
         title={t.hero.title[lang]}
         date={t.hero.eyebrow[lang]}

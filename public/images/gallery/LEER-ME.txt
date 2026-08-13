@@ -1,0 +1,10 @@
+Pon aquí TODAS las fotos de casos (antes/después, sonrisas, armonización facial).
+
+- No hace falta renombrar nada: los nombres pueden ser los que ya tienen
+  (IMG_1234.jpg, WhatsApp Image....jpeg, etc.).
+- Puedes poner las que quieras: 5, 20, 50.
+- Se ordenan alfabéticamente. Si quieres un orden concreto, ponles un número
+  delante: 01-..., 02-..., 03-...
+- Formatos: .jpg .jpeg .png .webp .avif
+
+Cuando subas las fotos, este archivo se puede borrar.

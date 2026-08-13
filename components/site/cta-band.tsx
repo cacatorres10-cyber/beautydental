@@ -2,17 +2,19 @@
 
 import { MessageCircle } from "lucide-react";
 import { useLang } from "./language-provider";
+import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, IMAGES, waLink } from "@/lib/content";
 
 export function CtaBand() {
   const { lang } = useLang();
+  const photos = usePhotos();
 
   return (
     <section className="relative py-24 md:py-28 overflow-hidden bg-ink">
       <div className="absolute inset-0 opacity-25">
-        <SmartImage src={IMAGES.ctaBg} alt="" className="h-full w-full" />
+        <SmartImage src={photos.clinic} alt="" className="h-full w-full" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/70" />
       <div

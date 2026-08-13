@@ -1,0 +1,2 @@
+(Opcional) Fotos de los pacientes que dejaron testimonios.
+Cualquier nombre de archivo. Si no pones ninguna, se usan fotos de ejemplo.

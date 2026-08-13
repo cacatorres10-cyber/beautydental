@@ -4,7 +4,8 @@ import { InfiniteSlider } from "@/components/ui/infinite-slider-horizontal";
 import { SmartImage } from "./smart-image";
 import { Reveal } from "./reveal";
 import { useLang } from "./language-provider";
-import { t, IMAGES } from "@/lib/content";
+import { usePhotos } from "./photos-provider";
+import { t } from "@/lib/content";
 
 function Slide({ src, alt }: { src: string; alt: string }) {
   return (
@@ -17,9 +18,15 @@ function Slide({ src, alt }: { src: string; alt: string }) {
 
 export function Gallery() {
   const { lang } = useLang();
-  const half = Math.ceil(IMAGES.gallery.length / 2);
-  const rowA = IMAGES.gallery.slice(0, half);
-  const rowB = IMAGES.gallery.slice(half);
+  const photos = usePhotos();
+  // A single row of 2-3 photos scrolls poorly, so keep one row until there
+  // are enough cases to fill two.
+  const useTwoRows = photos.gallery.length >= 6;
+  const half = useTwoRows
+    ? Math.ceil(photos.gallery.length / 2)
+    : photos.gallery.length;
+  const rowA = photos.gallery.slice(0, half);
+  const rowB = photos.gallery.slice(half);
 
   return (
     <section id="galeria" className="relative bg-white py-24 md:py-32 overflow-hidden">
@@ -43,11 +50,17 @@ export function Gallery() {
             <Slide key={i} src={src} alt={`${t.gallery.title[lang]} ${i + 1}`} />
           ))}
         </InfiniteSlider>
-        <InfiniteSlider gap={20} duration={44} durationOnHover={90} reverse>
-          {rowB.map((src, i) => (
-            <Slide key={i} src={src} alt={`${t.gallery.title[lang]} ${i + 1}`} />
-          ))}
-        </InfiniteSlider>
+        {rowB.length > 0 ? (
+          <InfiniteSlider gap={20} duration={44} durationOnHover={90} reverse>
+            {rowB.map((src, i) => (
+              <Slide
+                key={i}
+                src={src}
+                alt={`${t.gallery.title[lang]} ${half + i + 1}`}
+              />
+            ))}
+          </InfiniteSlider>
+        ) : null}
       </div>
 
       {/* soft edge fades */}
