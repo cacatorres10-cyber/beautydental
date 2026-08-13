@@ -14,7 +14,7 @@ interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
   mediaSrc: string;
   /** Shown if `mediaSrc` fails to load (e.g. the real photo isn't added yet). */
-  mediaFallbackSrc?: string;
+  mediaFallbacks?: string[];
   posterSrc?: string;
   bgImageSrc: string;
   title?: string;
@@ -27,7 +27,7 @@ interface ScrollExpandMediaProps {
 const ScrollExpandMedia = ({
   mediaType = "video",
   mediaSrc,
-  mediaFallbackSrc,
+  mediaFallbacks,
   posterSrc,
   bgImageSrc,
   title,
@@ -41,7 +41,11 @@ const ScrollExpandMedia = ({
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState<boolean>(false);
   const [touchStartY, setTouchStartY] = useState<number>(0);
   const [isMobileState, setIsMobileState] = useState<boolean>(false);
-  const [mediaCurrent, setMediaCurrent] = useState<string>(mediaSrc);
+  const [mediaIndex, setMediaIndex] = useState<number>(0);
+  const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
+
+  // Sources tried in order until one loads.
+  const mediaChain = [mediaSrc, ...(mediaFallbacks ?? []), "/brand/hero-bg.svg"];
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -52,8 +56,17 @@ const ScrollExpandMedia = ({
   }, [mediaType]);
 
   useEffect(() => {
-    setMediaCurrent(mediaSrc);
+    setMediaIndex(0);
+    setMediaLoaded(false);
   }, [mediaSrc]);
+
+  // A remote banner that hangs never fires onError, which would leave the
+  // opening blank. Give each source a moment, then move down the chain.
+  useEffect(() => {
+    if (mediaLoaded || mediaIndex >= mediaChain.length - 1) return;
+    const timer = setTimeout(() => setMediaIndex((i) => i + 1), 2500);
+    return () => clearTimeout(timer);
+  }, [mediaIndex, mediaLoaded, mediaChain.length]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -280,15 +293,14 @@ const ScrollExpandMedia = ({
                   <div className="relative w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={mediaCurrent}
+                      src={mediaChain[mediaIndex]}
                       alt={title || "Media content"}
-                      onError={() => {
-                        if (mediaFallbackSrc && mediaCurrent !== mediaFallbackSrc) {
-                          setMediaCurrent(mediaFallbackSrc);
-                        } else {
-                          setMediaCurrent("/brand/hero-bg.svg");
-                        }
-                      }}
+                      onLoad={() => setMediaLoaded(true)}
+                      onError={() =>
+                        setMediaIndex((i) =>
+                          i < mediaChain.length - 1 ? i + 1 : i
+                        )
+                      }
                       className="w-full h-full object-cover rounded-xl"
                     />
 

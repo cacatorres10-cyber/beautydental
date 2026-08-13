@@ -29,12 +29,18 @@ export function PhotosProvider({
   photos: SitePhotos;
   children: ReactNode;
 }) {
+  // A real smile case beats a stock shade guide, so the showcase borrows one
+  // from the gallery when no dedicated `smile` photo has been uploaded.
+  const smileCase =
+    photos.gallery.find((p) => /sorriso|sonrisa|smile/i.test(p)) ??
+    photos.gallery[0];
+
   const resolved: ResolvedPhotos = {
     hero: photos.hero ?? IMAGES.heroMedia,
     doctor: photos.doctor ?? IMAGES.doctor,
     intro: photos.intro ?? IMAGES.intro,
-    smile: photos.smile ?? IMAGES.smileShowcase,
-    clinic: photos.clinic ?? IMAGES.ctaBg,
+    smile: photos.smile ?? smileCase ?? IMAGES.smileShowcase,
+    clinic: photos.clinic ?? photos.intro ?? IMAGES.ctaBg,
     gallery: photos.gallery.length ? photos.gallery : IMAGES.gallery,
     avatars: photos.avatars.length ? photos.avatars : IMAGES.avatars,
     hasRealGallery: photos.gallery.length > 0,

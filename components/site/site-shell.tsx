@@ -23,11 +23,13 @@ export function SiteShell({ photos }: { photos: SitePhotos }) {
         <Navbar />
         <main>
           <Hero />
-          <Intro />
+          {/* The specialist comes first: visitors want to know who will treat
+              them before they read the philosophy. */}
+          <About />
           <Services />
           <Showcase />
           <Gallery />
-          <About />
+          <Intro />
           <Testimonials />
           <CtaBand />
           <Contact />

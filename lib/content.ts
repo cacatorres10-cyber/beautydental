@@ -78,26 +78,40 @@ export const IMAGES = {
   ],
 };
 
-/** Stock photo shown while a local file in `public/images/` is still missing. */
-export const IMAGE_FALLBACKS: Record<string, string> = {
-  "/images/hero.jpg": px(3762453, 1400),
-  "/images/intro.jpg": px(3985360, 1200),
-  "/images/smile.jpg": px(6528856, 1600),
-  "/images/doctor.jpg": px(5215024, 1000),
-  "/images/clinica.jpg": px(3997379, 1600),
-  "/images/gallery-1.jpg": px(3762453, 700),
-  "/images/gallery-2.jpg": px(3985360, 700),
-  "/images/gallery-3.jpg": px(6528856, 700),
-  "/images/gallery-4.jpg": px(3738349, 700),
-  "/images/gallery-5.jpg": px(3997379, 700),
-  "/images/gallery-6.jpg": px(3845810, 700),
-  "/images/gallery-7.jpg": px(4270091, 700),
-  "/images/gallery-8.jpg": px(3762800, 700),
-  "/images/avatar-1.jpg": px(774909, 200),
-  "/images/avatar-2.jpg": px(415829, 200),
-  "/images/avatar-3.jpg": px(1181686, 200),
-  "/images/avatar-4.jpg": px(762020, 200),
+/** Stock photos tried, in order, while a local file is still missing. */
+export const IMAGE_FALLBACKS: Record<string, string[]> = {
+  "/images/hero.jpg": [px(3762453, 1400)],
+  "/images/intro.jpg": [px(3985360, 1200)],
+  "/images/smile.jpg": [px(6528856, 1600)],
+  "/images/doctor.jpg": [px(5215024, 1000)],
+  "/images/clinica.jpg": [px(3997379, 1600)],
+  "/images/gallery-1.jpg": [px(3762453, 700)],
+  "/images/gallery-2.jpg": [px(3985360, 700)],
+  "/images/gallery-3.jpg": [px(6528856, 700)],
+  "/images/gallery-4.jpg": [px(3738349, 700)],
+  "/images/gallery-5.jpg": [px(3997379, 700)],
+  "/images/gallery-6.jpg": [px(3845810, 700)],
+  "/images/gallery-7.jpg": [px(4270091, 700)],
+  "/images/gallery-8.jpg": [px(3762800, 700)],
+  "/images/avatar-1.jpg": [px(774909, 200)],
+  "/images/avatar-2.jpg": [px(415829, 200)],
+  "/images/avatar-3.jpg": [px(1181686, 200)],
+  "/images/avatar-4.jpg": [px(762020, 200)],
 };
+
+/* --------------------------- Hero stock banner ---------------------------
+ * Wide stock photos for the opening banner, tried in order. The last resort
+ * is the clinic's own composed banner in `public/images/hero.webp`, so the
+ * hero still looks right if none of these load.
+ *
+ * To use a different photo, put its URL first in this list. Any wide (16:9)
+ * image works — the banner expands as the visitor scrolls.
+ * --------------------------------------------------------------------- */
+export const HERO_BANNERS = [
+  px(3985360, 1920), // facial aesthetics treatment
+  px(3997379, 1920), // clinic / skincare
+  px(3762453, 1920), // radiant smile
+];
 
 /* ------------------------------ Icons map ------------------------------ */
 // lucide-react icon names used per service (keeps content declarative).

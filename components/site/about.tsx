@@ -17,7 +17,7 @@ export function About() {
   ];
 
   return (
-    <section id="nosotros" className="relative bg-ivory py-24 md:py-32">
+    <section id="nosotros" className="relative bg-white py-24 md:py-32">
       <div className="container mx-auto px-5 md:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <Reveal>

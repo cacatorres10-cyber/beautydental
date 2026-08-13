@@ -11,6 +11,8 @@ type SmartImageProps = {
   imgClassName?: string;
   priority?: boolean;
   label?: string;
+  /** Extra sources to try, in order, before giving up on the placeholder. */
+  fallbacks?: string[];
 };
 
 /**
@@ -25,16 +27,18 @@ export function SmartImage({
   imgClassName,
   priority,
   label,
+  fallbacks,
 }: SmartImageProps) {
-  // Try the clinic's own photo first, then the stock stand-in, then the
-  // branded placeholder below — so a missing file never shows as broken.
-  const [current, setCurrent] = useState(src);
+  // Walk the sources in order — the clinic's own photo, then any stand-ins,
+  // then the branded placeholder below — so nothing ever shows as broken.
+  const chain = [src, ...(fallbacks ?? IMAGE_FALLBACKS[src] ?? [])];
+  const [index, setIndex] = useState(0);
   const [failed, setFailed] = useState(false);
+  const current = chain[index];
 
   const handleError = () => {
-    const fallback = IMAGE_FALLBACKS[src];
-    if (fallback && current !== fallback) {
-      setCurrent(fallback);
+    if (index < chain.length - 1) {
+      setIndex(index + 1);
       return;
     }
     setFailed(true);
