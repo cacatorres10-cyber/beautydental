@@ -10,6 +10,8 @@ import type { SitePhotos } from "@/lib/photos";
  */
 export type ResolvedPhotos = {
   hero: string;
+  heroVideo: string | null;
+  heroPoster: string | null;
   doctor: string;
   intro: string;
   smile: string;
@@ -37,6 +39,8 @@ export function PhotosProvider({
 
   const resolved: ResolvedPhotos = {
     hero: photos.hero ?? IMAGES.heroMedia,
+    heroVideo: photos.heroVideo,
+    heroPoster: photos.heroPoster,
     doctor: photos.doctor ?? IMAGES.doctor,
     intro: photos.intro ?? IMAGES.intro,
     smile: photos.smile ?? smileCase ?? IMAGES.smileShowcase,

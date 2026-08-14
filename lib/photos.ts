@@ -53,6 +53,9 @@ function folder(name: string): string[] {
 
 export type SitePhotos = {
   hero: string | null;
+  /** Optional cinematic loop for the opening, in public/media/hero.mp4 */
+  heroVideo: string | null;
+  heroPoster: string | null;
   doctor: string | null;
   intro: string | null;
   smile: string | null;
@@ -78,8 +81,14 @@ export function getTestimonialVideos(): string[] {
 }
 
 export function getSitePhotos(): SitePhotos {
+  const heroVideo = readDir(path.join(process.cwd(), "public", "media"))
+    .filter((f) => VIDEO_EXTENSIONS.includes(path.extname(f).toLowerCase()))
+    .find((f) => path.parse(f).name.toLowerCase() === "hero");
+
   return {
     hero: featured("hero"),
+    heroVideo: heroVideo ? `/media/${encodeURIComponent(heroVideo)}` : null,
+    heroPoster: featured("hero-poster"),
     doctor: featured("doctor"),
     intro: featured("intro"),
     smile: featured("smile"),

@@ -19,9 +19,9 @@ export function About() {
   return (
     <section id="nosotros" className="relative bg-white py-24 md:py-32">
       <div className="container mx-auto px-5 md:px-6">
-        <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
+        <div className="grid md:grid-cols-[minmax(0,23rem)_minmax(0,1fr)] gap-10 lg:gap-16 items-center">
           <Reveal>
-            <div className="relative max-w-[19rem] sm:max-w-sm mx-auto md:mx-0 md:ml-auto">
+            <div className="relative w-full max-w-[19rem] sm:max-w-sm mx-auto md:mx-0">
               <div className="absolute -inset-4 rounded-[2.2rem] bg-gradient-to-tr from-gold-light/25 to-transparent blur-2xl" />
               <div className="relative aspect-[2/3] rounded-[2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
                 <SmartImage

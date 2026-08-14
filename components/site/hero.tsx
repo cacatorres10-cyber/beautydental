@@ -3,24 +3,23 @@
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { useLang } from "./language-provider";
 import { usePhotos } from "./photos-provider";
-import { t, IMAGES, HERO_BANNERS, waLink } from "@/lib/content";
+import { t, IMAGES, waLink } from "@/lib/content";
 import { MessageCircle, ArrowDown } from "lucide-react";
 
 export function Hero() {
   const { lang } = useLang();
   const photos = usePhotos();
 
-  // The clinic's own banner leads: a stock URL cannot be checked from here,
-  // and a wrong photo on the opening screen is worse than no stock at all.
-  // Put a URL first in HERO_BANNERS to use a stock photo instead.
-  const [banner, ...bannerFallbacks] = [photos.hero, ...HERO_BANNERS];
+  // A single local source: the previous chain of stock URLs swapped the
+  // banner in front of the visitor mid-view, which read as a glitch.
+  const hasVideo = Boolean(photos.heroVideo);
 
   return (
     <section id="top" className="relative bg-ivory">
       <ScrollExpandMedia
-        mediaType="image"
-        mediaSrc={banner}
-        mediaFallbacks={bannerFallbacks}
+        mediaType={hasVideo ? "video" : "image"}
+        mediaSrc={photos.heroVideo ?? photos.hero}
+        posterSrc={photos.heroPoster ?? photos.hero}
         bgImageSrc={IMAGES.heroBg}
         title={t.hero.title[lang]}
         date={t.hero.eyebrow[lang]}
