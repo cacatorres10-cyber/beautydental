@@ -283,9 +283,9 @@ const ScrollExpandMedia = ({
                       ></div>
 
                       <motion.div
-                        className="absolute inset-0 bg-black/30 rounded-xl"
-                        initial={{ opacity: 0.7 }}
-                        animate={{ opacity: 0.5 - scrollProgress * 0.3 }}
+                        className="absolute inset-0 bg-white rounded-xl"
+                        initial={{ opacity: 0.45 }}
+                        animate={{ opacity: 0.45 - scrollProgress * 0.4 }}
                         transition={{ duration: 0.2 }}
                       />
                     </div>

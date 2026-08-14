@@ -327,15 +327,15 @@ export const t = {
   },
   hero: {
     eyebrow: { es: "La Romana · Rep. Dominicana", en: "La Romana · Dominican Republic" },
-    title: { es: "Sonrisas Radiantes", en: "Radiant Smiles" },
+    title: { es: "Belleza que se Siente", en: "Beauty You Feel" },
     scroll: { es: "Desliza para descubrir", en: "Scroll to discover" },
     lead: {
-      es: "Diseño de sonrisa y armonización facial. Donde tu sonrisa y tu rostro se equilibran.",
-      en: "Smile design and facial harmonization. Where your smile and your face come into balance.",
+      es: "Odontología estética y armonización facial. Porque verte bien es, sobre todo, sentirte segura de ti.",
+      en: "Aesthetic dentistry and facial harmonization. Because looking good is, above all, feeling sure of yourself.",
     },
     body: {
-      es: "En Beauty Dental & Skin unimos odontología estética y armonización facial para revelar tu versión más segura. Cada tratamiento es diseñado a la medida de tu rostro y de tus metas.",
-      en: "At Beauty Dental & Skin we combine aesthetic dentistry and facial harmonization to reveal your most confident self. Every treatment is tailored to your face and your goals.",
+      es: "En Beauty Dental & Skin cuidamos tu sonrisa y la armonía de tu rostro con un mismo objetivo: tu autoestima. Cada tratamiento se diseña a la medida de tus rasgos y de tus metas.",
+      en: "At Beauty Dental & Skin we care for your smile and the harmony of your face with one goal: your confidence. Every treatment is designed around your features and your goals.",
     },
     primary: { es: "Reservar por WhatsApp", en: "Book on WhatsApp" },
     secondary: { es: "Ver servicios", en: "Explore services" },
