@@ -120,7 +120,7 @@ export function Contact() {
           <Reveal delay={120} className="min-h-[22rem]">
             <div className="h-full overflow-hidden rounded-3xl ring-1 ring-ink/8 shadow-xl">
               <iframe
-                title="Beauty Dental & Skin — La Romana"
+                title="Beauty Dental & Skin · La Romana"
                 src={`https://www.google.com/maps?q=${encodeURIComponent(
                   CONTACT.mapsQuery
                 )}&output=embed`}

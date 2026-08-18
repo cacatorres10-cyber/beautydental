@@ -36,7 +36,7 @@ export function Logo({
             subColor
           )}
         >
-          &amp; Skin — La Romana
+          &amp; Skin · La Romana
         </span>
       </span>
     </span>

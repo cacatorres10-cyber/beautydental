@@ -184,7 +184,7 @@ export const DENTAL_SERVICES: ServiceItem[] = [
     },
     details: {
       es: "Alineamos tus dientes con brackets estéticos o con alineadores transparentes, casi invisibles y removibles. Planificamos el recorrido completo para que sepas cuánto tiempo tomará.",
-      en: "We align your teeth with aesthetic braces or clear aligners — nearly invisible and removable. We map the full path so you know how long it will take.",
+      en: "We align your teeth with aesthetic braces or clear aligners, nearly invisible and removable. We map the full path so you know how long it will take.",
     },
   },
   {
@@ -393,8 +393,8 @@ export const t = {
       en: "With experience in smile design and facial aesthetics, Dr. Sindy Silvestre leads Beauty Dental & Skin with a clear vision: to unite health, art and balance in every treatment.",
     },
     body2: {
-      es: "Su mirada integral —donde la sonrisa y la armonía del rostro se planifican juntas— y su trato cercano la han convertido en un referente de la estética dental y facial en La Romana.",
-      en: "Her integrated approach — where the smile and facial harmony are planned together — and her warm care have made her a reference for dental and facial aesthetics in La Romana.",
+      es: "Su mirada integral, donde la sonrisa y la armonía del rostro se planifican juntas, y su trato cercano la han convertido en un referente de la estética dental y facial en La Romana.",
+      en: "Her integrated approach, where the smile and facial harmony are planned together, and her warm care have made her a reference for dental and facial aesthetics in La Romana.",
     },
     note: {
       es: "",
