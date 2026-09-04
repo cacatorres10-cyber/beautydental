@@ -1,0 +1,26 @@
+Fotos del equipo (sección "Nuestro equipo").
+
+Son 5 personas, en este orden:
+
+  1. Dra. Sindy Silvestre  ..  Especialista en estética dental y armonización facial
+  2. Dra. Melany Rosa      ..  Odontóloga integral
+  3. Dr. José Sánchez      ..  Especialista en implantología oral y rehabilitación bucal
+  4. Dra. Zaynab Cartacio  ..  Especialista en cirugía bucal
+  5. Sardis Carpio         ..  Cosmiatra
+
+Dos formas de subir las fotos, las dos funcionan:
+
+  A) Con el nombre dentro del archivo: "sindy.jpg", "dra-melany.png",
+     "jose sanchez.jpeg", "zaynab.webp", "sardis.jpg".
+     No importa el orden ni las mayúsculas ni los acentos.
+
+  B) Numeradas en el orden de arriba: 01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg.
+
+Detalles:
+  - Formatos: .jpg .jpeg .png .webp .avif
+  - Fotos verticales (retrato). Se recortan en 3:4 desde arriba, así la cara
+    siempre queda dentro del cuadro.
+  - Si falta la foto de alguien, aparecen sus iniciales en dorado hasta que
+    se suba.
+
+Cuando subas las fotos, este archivo se puede borrar.

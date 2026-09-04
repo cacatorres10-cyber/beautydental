@@ -315,6 +315,61 @@ export const STATS: { value: string; label: Record<Lang, string> }[] = [
   { value: "4.9★", label: { es: "Valoración de pacientes", en: "Patient rating" } },
 ];
 
+/* ------------------------------ The team ------------------------------- */
+export type TeamMember = {
+  /** Stable id used to pair the person with their photo. */
+  key: string;
+  name: string;
+  role: Record<Lang, string>;
+  /**
+   * Fragments looked for inside the photo file name (accent free, lowercase).
+   * A file called "dra-melany.jpg" finds Melany no matter where it sorts.
+   */
+  match: string[];
+};
+
+export const TEAM: TeamMember[] = [
+  {
+    key: "sindy-silvestre",
+    name: "Dra. Sindy Silvestre",
+    role: {
+      es: "Especialista en estética dental y armonización facial",
+      en: "Specialist in dental aesthetics and facial harmonization",
+    },
+    match: ["sindy", "silvestre"],
+  },
+  {
+    key: "melany-rosa",
+    name: "Dra. Melany Rosa",
+    role: { es: "Odontóloga integral", en: "Comprehensive dentistry" },
+    match: ["melany", "rosa"],
+  },
+  {
+    key: "jose-sanchez",
+    name: "Dr. José Sánchez",
+    role: {
+      es: "Especialista en implantología oral y rehabilitación bucal",
+      en: "Specialist in oral implantology and oral rehabilitation",
+    },
+    match: ["jose", "sanchez"],
+  },
+  {
+    key: "zaynab-cartacio",
+    name: "Dra. Zaynab Cartacio",
+    role: {
+      es: "Especialista en cirugía bucal",
+      en: "Specialist in oral surgery",
+    },
+    match: ["zaynab", "cartacio"],
+  },
+  {
+    key: "sardis-carpio",
+    name: "Sardis Carpio",
+    role: { es: "Cosmiatra", en: "Skin care specialist" },
+    match: ["sardis", "carpio"],
+  },
+];
+
 /* ------------------------- UI copy dictionary -------------------------- */
 export const t = {
   nav: {
@@ -322,6 +377,7 @@ export const t = {
     about: { es: "Nosotros", en: "About" },
     gallery: { es: "Galería", en: "Gallery" },
     testimonials: { es: "Testimonios", en: "Reviews" },
+    team: { es: "Equipo", en: "Team" },
     contact: { es: "Contacto", en: "Contact" },
     cta: { es: "Agenda tu cita", en: "Book now" },
   },
@@ -399,6 +455,21 @@ export const t = {
     note: {
       es: "",
       en: "",
+    },
+  },
+  team: {
+    eyebrow: { es: "Nuestro equipo", en: "Our team" },
+    title: { es: "El equipo detrás de", en: "The team behind" },
+    titleAccent: { es: "cada sonrisa", en: "every smile" },
+    subtitle: {
+      es: "Especialistas que trabajan juntos para cuidar tu sonrisa, tu piel y la armonía de tu rostro.",
+      en: "Specialists who work together to care for your smile, your skin and the harmony of your face.",
+    },
+    book: { es: "Agendar", en: "Book" },
+    /** {name} is replaced with the specialist before opening WhatsApp. */
+    waMessage: {
+      es: "Hola, quisiera agendar una cita con {name}.",
+      en: "Hello, I would like to book an appointment with {name}.",
     },
   },
   testimonials: {

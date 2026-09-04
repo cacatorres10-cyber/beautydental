@@ -18,6 +18,8 @@ export type ResolvedPhotos = {
   clinic: string;
   gallery: string[];
   avatars: string[];
+  /** Team member key -> photo, empty until their portraits are uploaded. */
+  team: Record<string, string>;
   /** True once real gallery photos are in place (hides the "sample" note). */
   hasRealGallery: boolean;
 };
@@ -37,6 +39,13 @@ export function PhotosProvider({
     photos.gallery.find((p) => /sorriso|sonrisa|smile/i.test(p)) ??
     photos.gallery[0];
 
+  // Her portrait already lives in `public/images/`, so she is on the team
+  // grid from the start even before the group photos are uploaded.
+  const team = { ...photos.team };
+  if (!team["sindy-silvestre"] && photos.doctor) {
+    team["sindy-silvestre"] = photos.doctor;
+  }
+
   const resolved: ResolvedPhotos = {
     hero: photos.hero ?? IMAGES.heroMedia,
     heroVideo: photos.heroVideo,
@@ -47,6 +56,7 @@ export function PhotosProvider({
     clinic: photos.clinic ?? photos.intro ?? IMAGES.ctaBg,
     gallery: photos.gallery.length ? photos.gallery : IMAGES.gallery,
     avatars: photos.avatars.length ? photos.avatars : IMAGES.avatars,
+    team,
     hasRealGallery: photos.gallery.length > 0,
   };
 

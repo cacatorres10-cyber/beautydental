@@ -9,6 +9,7 @@ import { Services } from "./services";
 import { Showcase } from "./showcase";
 import { Gallery } from "./gallery";
 import { About } from "./about";
+import { Team } from "./team";
 import { VideoTestimonials } from "./video-testimonials";
 import { CtaBand } from "./cta-band";
 import { Contact } from "./contact";
@@ -33,6 +34,8 @@ export function SiteShell({
           {/* The specialist comes first: visitors want to know who will treat
               them before they read the philosophy. */}
           <About />
+          {/* She leads, and the rest of the team follows right after. */}
+          <Team />
           <Services />
           <Showcase />
           <Gallery />

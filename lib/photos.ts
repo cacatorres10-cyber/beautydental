@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { TEAM } from "./content";
 
 /* -------------------------------------------------------------------------
  * Reads the clinic's photos straight off the filesystem at build time.
@@ -51,6 +52,55 @@ function folder(name: string): string[] {
     .map((file) => `/images/${name}/${encodeURIComponent(file)}`);
 }
 
+/** Accent free, letters and digits only, for comparing file names to names. */
+const slug = (value: string) =>
+  value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+
+/**
+ * Pairs each person on the team with a photo from `public/images/team/`.
+ *
+ * A file that carries the person's name wins, whatever order it sorts in
+ * ("dra-melany.jpg"). Anything left over fills the remaining slots in roster
+ * order, so five files simply called 1 to 5 also land correctly.
+ */
+function getTeamPhotos(): Record<string, string> {
+  const files = readDir(path.join(imagesDir(), "team"))
+    .filter(isImage)
+    .sort(naturalSort);
+
+  const taken = new Set<string>();
+  const photos: Record<string, string> = {};
+  const src = (file: string) => `/images/team/${encodeURIComponent(file)}`;
+
+  for (const member of TEAM) {
+    const named = files.find(
+      (file) =>
+        !taken.has(file) &&
+        member.match.some((fragment) =>
+          slug(path.parse(file).name).includes(fragment)
+        )
+    );
+    if (named) {
+      taken.add(named);
+      photos[member.key] = src(named);
+    }
+  }
+
+  const spare = files.filter((file) => !taken.has(file));
+  for (const member of TEAM) {
+    if (photos[member.key]) continue;
+    const next = spare.shift();
+    if (!next) break;
+    photos[member.key] = src(next);
+  }
+
+  return photos;
+}
+
 export type SitePhotos = {
   hero: string | null;
   /** Optional cinematic loop for the opening, in public/media/hero.mp4 */
@@ -62,6 +112,8 @@ export type SitePhotos = {
   clinic: string | null;
   gallery: string[];
   avatars: string[];
+  /** Team member key -> photo path, for whoever has a photo uploaded. */
+  team: Record<string, string>;
 };
 
 /* ------------------------------- Videos -------------------------------- */
@@ -95,5 +147,6 @@ export function getSitePhotos(): SitePhotos {
     clinic: featured("clinica") ?? featured("clinic"),
     gallery: folder("gallery"),
     avatars: folder("avatars"),
+    team: getTeamPhotos(),
   };
 }

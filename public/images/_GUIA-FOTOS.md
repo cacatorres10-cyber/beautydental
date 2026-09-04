@@ -27,7 +27,23 @@ La extensión da igual (`.jpg`, `.jpeg`, `.png`, `.webp`).
 
 Ejemplo: `doctor.jpeg`, `hero.jpg`, `clinica.png` — todos válidos.
 
-## 3. Testimonios (opcional)
+## 3. El equipo
+
+👉 Los retratos van en la carpeta **`team/`** (son 5 personas).
+
+Dos formas, las dos funcionan:
+
+- **Con el nombre dentro del archivo:** `sindy.jpg`, `dra-melany.png`,
+  `jose sanchez.jpeg`, `zaynab.webp`, `sardis.jpg`. No importa el orden,
+  ni las mayúsculas, ni los acentos.
+- **Numeradas** en este orden: `01` Dra. Sindy Silvestre, `02` Dra. Melany Rosa,
+  `03` Dr. José Sánchez, `04` Dra. Zaynab Cartacio, `05` Sardis Carpio.
+
+Fotos verticales. Se recortan en 3:4 desde arriba, así la cara siempre queda
+dentro del cuadro. A quien le falte la foto se le muestran sus iniciales en
+dorado. Los nombres y los cargos se editan en `lib/content.ts` (`TEAM`).
+
+## 4. Testimonios (opcional)
 
 Fotos de pacientes en la carpeta **`avatars/`**, cualquier nombre.
 Si no pones ninguna, se muestran las iniciales.

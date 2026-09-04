@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { id: "servicios", key: "services" as const },
   { id: "nosotros", key: "about" as const },
+  { id: "equipo", key: "team" as const },
   { id: "galeria", key: "gallery" as const },
   { id: "testimonios", key: "testimonials" as const },
   { id: "contacto", key: "contact" as const },
@@ -42,7 +43,7 @@ export function Navbar() {
           <Logo tone="dark" />
         </a>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((l) => (
             <a
               key={l.id}
@@ -79,7 +80,7 @@ export function Navbar() {
       <div
         className={cn(
           "lg:hidden overflow-hidden transition-all duration-500 ease-in-out",
-          open ? "max-h-[26rem] opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="container mx-auto px-5 pt-4 pb-6 mt-3 bg-white/95 backdrop-blur-md border-t border-ink/5 flex flex-col gap-1">
