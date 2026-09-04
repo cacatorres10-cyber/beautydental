@@ -8,6 +8,7 @@ import { t, CONTACT, waLink } from "@/lib/content";
 const navLinks = [
   { id: "servicios", key: "services" as const },
   { id: "nosotros", key: "about" as const },
+  { id: "equipo", key: "team" as const },
   { id: "galeria", key: "gallery" as const },
   { id: "testimonios", key: "testimonials" as const },
   { id: "contacto", key: "contact" as const },
