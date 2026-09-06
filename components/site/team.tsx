@@ -85,12 +85,14 @@ export function Team() {
       <div className="container mx-auto px-5 md:px-6">
         {photos.teamBand ? (
           <Reveal className="mb-14 md:mb-20">
-            <div className="relative overflow-hidden rounded-3xl ring-1 ring-gold/15 shadow-[0_40px_90px_-60px_rgba(60,45,10,0.7)]">
+            {/* The ratio belongs on the frame: an `aspect` class on the image
+                itself fights `h-full` and the band grew to a full screen. */}
+            <div className="relative aspect-[5/4] overflow-hidden rounded-3xl ring-1 ring-gold/15 shadow-[0_40px_90px_-60px_rgba(60,45,10,0.7)] sm:aspect-[16/7]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={photos.teamBand}
                 alt={t.team.eyebrow[lang]}
-                className="h-full w-full object-cover object-[center_22%] aspect-[4/3] sm:aspect-[16/7]"
+                className="absolute inset-0 h-full w-full object-cover object-[center_22%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent" />
               <p className="absolute inset-x-0 bottom-0 p-5 font-serif text-lg leading-snug text-white md:p-9 md:text-2xl">
