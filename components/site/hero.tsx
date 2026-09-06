@@ -3,7 +3,7 @@
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { useLang } from "./language-provider";
 import { usePhotos } from "./photos-provider";
-import { t, IMAGES, waLink } from "@/lib/content";
+import { t, IMAGES, HERO_MODE, waLink } from "@/lib/content";
 import { MessageCircle, ArrowDown } from "lucide-react";
 
 export function Hero() {
@@ -12,13 +12,16 @@ export function Hero() {
 
   // A single local source: the previous chain of stock URLs swapped the
   // banner in front of the visitor mid-view, which read as a glitch.
-  const hasVideo = Boolean(photos.heroVideo);
+  // `HERO_MODE` in lib/content.ts picks the opening: the team banner or the
+  // video loop. Both files stay in the repository either way.
+  const useVideo = HERO_MODE === "video" && Boolean(photos.heroVideo);
 
   return (
     <section id="top" className="relative bg-ivory">
       <ScrollExpandMedia
-        mediaType={hasVideo ? "video" : "image"}
-        mediaSrc={photos.heroVideo ?? photos.hero}
+        mediaType={useVideo ? "video" : "image"}
+        mediaSrc={useVideo ? photos.heroVideo! : photos.hero}
+        mediaSrcMobile={useVideo ? undefined : photos.heroMobile}
         posterSrc={photos.heroPoster ?? photos.hero}
         bgImageSrc={IMAGES.heroBg}
         title={t.hero.title[lang]}

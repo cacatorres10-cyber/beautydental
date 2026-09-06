@@ -83,7 +83,24 @@ export function Team() {
       className="relative scroll-mt-20 bg-white pb-24 pt-4 md:pb-32"
     >
       <div className="container mx-auto px-5 md:px-6">
-        <div className="hairline mx-auto mb-16 h-px w-full max-w-3xl md:mb-20" />
+        {photos.teamBand ? (
+          <Reveal className="mb-14 md:mb-20">
+            <div className="relative overflow-hidden rounded-3xl ring-1 ring-gold/15 shadow-[0_40px_90px_-60px_rgba(60,45,10,0.7)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photos.teamBand}
+                alt={t.team.eyebrow[lang]}
+                className="h-full w-full object-cover object-[center_22%] aspect-[4/3] sm:aspect-[16/7]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent" />
+              <p className="absolute inset-x-0 bottom-0 p-5 font-serif text-lg leading-snug text-white md:p-9 md:text-2xl">
+                {t.team.band[lang]}
+              </p>
+            </div>
+          </Reveal>
+        ) : (
+          <div className="hairline mx-auto mb-16 h-px w-full max-w-3xl md:mb-20" />
+        )}
 
         <Reveal className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
           <span className="eyebrow justify-center">
@@ -100,13 +117,14 @@ export function Team() {
           <p className="mt-5 text-lg text-ink/55">{t.team.subtitle[lang]}</p>
         </Reveal>
 
-        {/* Flex rather than a grid so an odd last row stays centred. */}
-        <div className="flex flex-wrap justify-center gap-5">
+        {/* Flex rather than a grid so an odd last row stays centred. The
+            narrower block keeps it at three across, in two even rows. */}
+        <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-5">
           {TEAM.map((member, i) => (
             <Reveal
               key={member.key}
               delay={i * 80}
-              className="w-[calc(50%-0.625rem)] max-w-[15rem] sm:w-[calc(33.333%-0.834rem)] lg:w-[calc(20%-1rem)]"
+              className="w-[calc(50%-0.625rem)] sm:w-[calc(33.333%-0.834rem)]"
             >
               <Member member={member} photo={photos.team[member.key]} />
             </Reveal>

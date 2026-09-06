@@ -5,6 +5,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
   mediaSrc: string;
+  /** Phone framing of the same banner, in a taller crop. */
+  mediaSrcMobile?: string;
   /** Tried in order if `mediaSrc` fails to load. */
   mediaFallbacks?: string[];
   posterSrc?: string;
@@ -30,6 +32,7 @@ const clamp = (v: number, min: number, max: number) =>
 const ScrollExpandMedia = ({
   mediaType = "video",
   mediaSrc,
+  mediaSrcMobile,
   mediaFallbacks,
   posterSrc,
   bgImageSrc,
@@ -44,9 +47,11 @@ const ScrollExpandMedia = ({
   const [isMobile, setIsMobile] = useState(false);
   const [mediaIndex, setMediaIndex] = useState(0);
 
-  const mediaChain = [mediaSrc, ...(mediaFallbacks ?? []), bgImageSrc];
+  // A phone gets the tighter crop, where faces are large enough to read.
+  const source = isMobile && mediaSrcMobile ? mediaSrcMobile : mediaSrc;
+  const mediaChain = [source, ...(mediaFallbacks ?? []), bgImageSrc];
 
-  useEffect(() => setMediaIndex(0), [mediaSrc]);
+  useEffect(() => setMediaIndex(0), [source]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -80,21 +85,31 @@ const ScrollExpandMedia = ({
     };
   }, []);
 
-  // A 16:9 frame throughout, so a widescreen banner reads correctly both as
-  // the small opening card and once it fills the screen.
-  const startWidth = isMobile ? 320 : 460;
+  // The frame keeps one aspect throughout so the banner reads correctly both
+  // as the small opening card and once it fills the screen. `aspect-ratio`
+  // derives the height from the width the browser actually settles on, which
+  // a second `min()` on the height would get wrong once 96vw clamps it.
+  const startWidth = isMobile ? 260 : 460;
   const endWidth = isMobile ? 960 : 1760;
   const rawWidth = Math.round(startWidth + progress * (endWidth - startWidth));
   const mediaWidth = `min(${rawWidth}px, 96vw)`;
-  const mediaHeight = `min(${Math.round((rawWidth * 9) / 16)}px, 86vh)`;
+  // A phone runs out of width almost at once, so there the frame also turns
+  // from a landscape card into a tall one: that is where the growth is felt.
+  const phoneFrame = isMobile && mediaSrcMobile;
+  const mediaAspect = phoneFrame
+    ? `${(1.34 - progress * 0.54).toFixed(3)} / 1`
+    : "16 / 9";
 
   const textShift = progress * (isMobile ? 60 : 46);
   const titleOpacity = clamp(1 - progress * 1.6, 0, 1);
   const chromeOpacity = clamp(1 - progress * 2.4, 0, 1);
 
-  // On phones the headline sat on top of the photo and became unreadable, so
-  // the media starts lower and the headline sits above it.
-  const stacked = isMobile && progress < 0.35;
+  // The headline used to sit on top of the banner, which buried the faces in
+  // a team photo. The card starts lower with the headline above it, and both
+  // slide back to centre as the banner grows, with no jump on the way.
+  const restTop = isMobile ? 64 : 62;
+  const mediaTop = `${(restTop - progress * (restTop - 50)).toFixed(2)}%`;
+  const titleGap = `${((isMobile ? 30 : 32) * (1 - progress)).toFixed(2)}vh`;
 
   const firstWord = title ? title.split(" ")[0] : "";
   const restOfTitle = title ? title.split(" ").slice(1).join(" ") : "";
@@ -117,15 +132,16 @@ const ScrollExpandMedia = ({
           <div
             className="absolute left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl ring-1 ring-gold/30"
             style={{
-              top: stacked ? "64%" : "50%",
+              top: mediaTop,
               width: mediaWidth,
-              height: mediaHeight,
+              aspectRatio: mediaAspect,
+              maxHeight: "86vh",
               boxShadow: "0 30px 80px -40px rgba(120, 90, 20, 0.45)",
             }}
           >
             {mediaType === "video" ? (
               <video
-                src={mediaSrc}
+                src={source}
                 poster={posterSrc}
                 autoPlay
                 muted
@@ -148,10 +164,11 @@ const ScrollExpandMedia = ({
               />
             )}
 
-            {/* Light wash keeps the ink headline readable, clearing as it grows */}
+            {/* A light wash settles the card into the ivory ground; it clears
+                as the banner takes over the screen. */}
             <div
               className="pointer-events-none absolute inset-0 bg-white"
-              style={{ opacity: clamp(0.42 - progress * 0.42, 0, 1) }}
+              style={{ opacity: clamp(0.24 - progress * 0.24, 0, 1) }}
             />
           </div>
 
@@ -160,7 +177,7 @@ const ScrollExpandMedia = ({
               textBlend ? "mix-blend-difference" : ""
             }`}
             style={{
-              marginBottom: stacked ? "40vh" : 0,
+              marginBottom: titleGap,
               opacity: titleOpacity,
             }}
           >

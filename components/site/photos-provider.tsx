@@ -10,6 +10,9 @@ import type { SitePhotos } from "@/lib/photos";
  */
 export type ResolvedPhotos = {
   hero: string;
+  /** Phone framing of the banner; falls back to the wide one. */
+  heroMobile: string;
+  teamBand: string | null;
   heroVideo: string | null;
   heroPoster: string | null;
   doctor: string;
@@ -48,6 +51,8 @@ export function PhotosProvider({
 
   const resolved: ResolvedPhotos = {
     hero: photos.hero ?? IMAGES.heroMedia,
+    heroMobile: photos.heroMobile ?? photos.hero ?? IMAGES.heroMedia,
+    teamBand: photos.teamBand,
     heroVideo: photos.heroVideo,
     heroPoster: photos.heroPoster,
     doctor: photos.doctor ?? IMAGES.doctor,

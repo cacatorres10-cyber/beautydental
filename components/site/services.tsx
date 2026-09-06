@@ -8,11 +8,21 @@ import {
   AlignHorizontalDistributeCenter,
   Anchor,
   Stethoscope,
+  Microscope,
+  Scissors,
   Droplets,
+  Droplet,
   Syringe,
   Flower2,
+  PenTool,
   Wand2,
   HeartPulse,
+  Grip,
+  FlaskConical,
+  Layers,
+  Dna,
+  Atom,
+  Waves,
   Plus,
   MessageCircle,
   type LucideIcon,
@@ -21,8 +31,7 @@ import { useLang } from "./language-provider";
 import { Reveal } from "./reveal";
 import {
   t,
-  DENTAL_SERVICES,
-  FACIAL_SERVICES,
+  SERVICE_GROUPS,
   waLink,
   type IconName,
   type Lang,
@@ -36,14 +45,24 @@ const ICONS: Record<IconName, LucideIcon> = {
   AlignHorizontalDistributeCenter,
   Anchor,
   Stethoscope,
+  Microscope,
+  Scissors,
   Droplets,
+  Droplet,
   Syringe,
   Flower2,
+  PenTool,
   Wand2,
   HeartPulse,
+  Grip,
+  FlaskConical,
+  Layers,
+  Dna,
+  Atom,
+  Waves,
 };
 
-type Service = (typeof DENTAL_SERVICES)[number];
+type Service = (typeof SERVICE_GROUPS)[number]["items"][number];
 
 function ServiceCard({
   service,
@@ -137,36 +156,16 @@ function ServiceCard({
   );
 }
 
-function GroupHeading({ label }: { label: string }) {
-  return (
-    <Reveal>
-      <div className="mb-6 flex items-center gap-4">
-        <span className="font-serif text-xl text-ink md:text-2xl">{label}</span>
-        <span className="hairline h-px flex-1" />
-      </div>
-    </Reveal>
-  );
-}
-
 export function Services() {
   const { lang } = useLang();
+  // Twenty one treatments in one column made the phone scroll forever, so the
+  // three areas share the space and the visitor picks one.
+  const [tab, setTab] = useState(SERVICE_GROUPS[0].key);
   // One open card at a time keeps the grid from jumping around.
   const [openId, setOpenId] = useState<string | null>(null);
 
-  const renderGroup = (list: Service[], group: string) =>
-    list.map((s, i) => {
-      const id = `${group}-${i}`;
-      return (
-        <ServiceCard
-          key={id}
-          service={s}
-          index={i}
-          lang={lang}
-          open={openId === id}
-          onToggle={() => setOpenId(openId === id ? null : id)}
-        />
-      );
-    });
+  const active =
+    SERVICE_GROUPS.find((g) => g.key === tab) ?? SERVICE_GROUPS[0];
 
   return (
     <section id="servicios" className="relative bg-ivory py-20 md:py-28">
@@ -186,23 +185,62 @@ export function Services() {
           <p className="mt-4 text-base text-ink/55">
             {t.services.subtitle[lang]}
           </p>
-          <p className="mt-2 text-xs uppercase tracking-[0.2em] text-gold-deep/70">
-            {t.services.hint[lang]}
-          </p>
         </Reveal>
 
-        <div className="mt-14">
-          <GroupHeading label={t.services.dental[lang]} />
-          <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {renderGroup(DENTAL_SERVICES, "dental")}
+        <Reveal delay={90}>
+          <div
+            role="tablist"
+            aria-label={t.services.title[lang]}
+            className="mx-auto mt-9 flex max-w-2xl items-center justify-center gap-1 rounded-full border border-ink/8 bg-white p-1.5 shadow-[0_16px_40px_-36px_rgba(0,0,0,0.5)] sm:gap-2"
+          >
+            {SERVICE_GROUPS.map((group) => {
+              const on = group.key === tab;
+              return (
+                <button
+                  key={group.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => {
+                    setTab(group.key);
+                    setOpenId(null);
+                  }}
+                  className={cn(
+                    "min-h-[42px] flex-1 whitespace-nowrap rounded-full px-2.5 text-xs font-medium transition-all duration-300 sm:px-4 sm:text-[13px] md:text-sm",
+                    on
+                      ? "bg-gradient-to-br from-gold-light to-gold-deep text-white shadow-[0_10px_24px_-14px_rgba(184,145,47,0.9)]"
+                      : "text-ink/60 hover:text-gold-deep"
+                  )}
+                >
+                  <span className="sm:hidden">{group.short[lang]}</span>
+                  <span className="hidden sm:inline">{group.label[lang]}</span>
+                </button>
+              );
+            })}
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-14">
-          <GroupHeading label={t.services.skin[lang]} />
-          <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {renderGroup(FACIAL_SERVICES, "facial")}
-          </div>
+        <p className="mt-5 text-center text-xs uppercase tracking-[0.2em] text-gold-deep/70">
+          {t.services.hint[lang]}
+        </p>
+
+        <div
+          key={active.key}
+          className="mt-8 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {active.items.map((service, i) => {
+            const id = `${active.key}-${i}`;
+            return (
+              <ServiceCard
+                key={id}
+                service={service}
+                index={i}
+                lang={lang}
+                open={openId === id}
+                onToggle={() => setOpenId(openId === id ? null : id)}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

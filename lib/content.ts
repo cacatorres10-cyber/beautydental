@@ -78,6 +78,13 @@ export const IMAGES = {
   ],
 };
 
+/* ------------------------------ Hero mode -------------------------------
+ * "image" opens with the team banner in `public/images/hero.webp`, and
+ * "video" opens with the loop in `public/media/hero.mp4`. Both files stay in
+ * the repository, so switching the opening is a one-word change here.
+ * --------------------------------------------------------------------- */
+export const HERO_MODE: "image" | "video" = "image";
+
 /** Stock photos tried, in order, while a local file is still missing. */
 export const IMAGE_FALLBACKS: Record<string, string[]> = {
   "/images/hero.jpg": [px(3762453, 1400)],
@@ -122,11 +129,21 @@ export type IconName =
   | "AlignHorizontalDistributeCenter"
   | "Anchor"
   | "Stethoscope"
+  | "Microscope"
+  | "Scissors"
   | "Droplets"
+  | "Droplet"
   | "Syringe"
   | "Flower2"
+  | "PenTool"
   | "Wand2"
-  | "HeartPulse";
+  | "HeartPulse"
+  | "Grip"
+  | "FlaskConical"
+  | "Layers"
+  | "Dna"
+  | "Atom"
+  | "Waves";
 
 /* ------------------------------- Content ------------------------------- */
 type ServiceItem = {
@@ -138,153 +155,296 @@ type ServiceItem = {
   details: Record<Lang, string>;
 };
 
-export const DENTAL_SERVICES: ServiceItem[] = [
-  {
-    icon: "Smile",
-    title: { es: "Diseño de Sonrisa", en: "Smile Design" },
-    desc: {
-      es: "Planificación digital para crear la sonrisa que armoniza con tu rostro.",
-      en: "Digital planning to craft the smile that harmonizes with your face.",
-    },
-    details: {
-      es: "Estudiamos tus proporciones faciales, el color de tu piel y la forma de tus labios para proyectar la sonrisa que te queda mejor. Verás una simulación antes de tocar un solo diente, y decidimos juntas cada detalle.",
-      en: "We study your facial proportions, skin tone and lip shape to plan the smile that suits you best. You see a simulation before a single tooth is touched, and we decide every detail together.",
-    },
-  },
-  {
-    icon: "Gem",
-    title: { es: "Carillas y Lentes de Contacto", en: "Veneers & Dental Lenses" },
-    desc: {
-      es: "Porcelana ultrafina para una sonrisa natural, brillante y duradera.",
-      en: "Ultra-thin porcelain for a natural, radiant and lasting smile.",
-    },
-    details: {
-      es: "Láminas de porcelana ultrafinas que corrigen color, forma, tamaño y pequeños espacios entre dientes. Son resistentes a las manchas y, bien cuidadas, duran muchos años sin perder brillo.",
-      en: "Ultra-thin porcelain layers that correct color, shape, size and small gaps between teeth. They resist staining and, cared for properly, last for years without losing their shine.",
-    },
-  },
-  {
-    icon: "Sparkles",
-    title: { es: "Blanqueamiento Dental", en: "Teeth Whitening" },
-    desc: {
-      es: "Recupera el blanco natural de tus dientes de forma segura y controlada.",
-      en: "Restore your teeth's natural whiteness safely and comfortably.",
-    },
-    details: {
-      es: "Aclaramos varios tonos con geles profesionales y controlamos la sensibilidad durante todo el proceso. Ideal antes de un evento o como primer paso de un diseño de sonrisa.",
-      en: "We lighten several shades with professional gels and manage sensitivity throughout. Ideal before an event, or as the first step of a smile design.",
-    },
-  },
-  {
-    icon: "AlignHorizontalDistributeCenter",
-    title: { es: "Ortodoncia y Alineadores", en: "Orthodontics & Aligners" },
-    desc: {
-      es: "Brackets estéticos y alineadores invisibles para una mordida perfecta.",
-      en: "Aesthetic braces and invisible aligners for a perfect bite.",
-    },
-    details: {
-      es: "Alineamos tus dientes con brackets estéticos o con alineadores transparentes, casi invisibles y removibles. Planificamos el recorrido completo para que sepas cuánto tiempo tomará.",
-      en: "We align your teeth with aesthetic braces or clear aligners, nearly invisible and removable. We map the full path so you know how long it will take.",
-    },
-  },
-  {
-    icon: "Anchor",
-    title: { es: "Implantes Dentales", en: "Dental Implants" },
-    desc: {
-      es: "Reemplazo fijo y natural de piezas ausentes con tecnología de precisión.",
-      en: "Fixed, natural replacement of missing teeth with precision technology.",
-    },
-    details: {
-      es: "Reponemos la pieza perdida con un implante de titanio y una corona hecha a la medida de tu boca. Recuperas la mordida, el habla y la confianza para sonreír sin taparte.",
-      en: "We replace the missing tooth with a titanium implant and a crown made to match your mouth. You get back your bite, your speech and the confidence to smile openly.",
-    },
-  },
-  {
-    icon: "Stethoscope",
-    title: { es: "Odontología General", en: "General Dentistry" },
-    desc: {
-      es: "Prevención, limpieza y salud bucal para toda la familia.",
-      en: "Prevention, cleaning and oral health for the whole family.",
-    },
-    details: {
-      es: "Limpiezas, resinas, tratamiento de caries y revisiones periódicas para toda la familia. La base de cualquier tratamiento estético es una boca sana.",
-      en: "Cleanings, fillings, cavity treatment and regular check-ups for the whole family. A healthy mouth is the foundation of any aesthetic treatment.",
-    },
-  },
-];
+type ServiceGroup = {
+  key: string;
+  label: Record<Lang, string>;
+  /** Fits the tab row on a phone, where the full label wraps. */
+  short: Record<Lang, string>;
+  items: ServiceItem[];
+};
 
-export const FACIAL_SERVICES: ServiceItem[] = [
+export const SERVICE_GROUPS: ServiceGroup[] = [
   {
-    icon: "Syringe",
-    title: { es: "Toxina Botulínica", en: "Botulinum Toxin" },
-    desc: {
-      es: "Suaviza arrugas de expresión y rejuvenece tu mirada conservando tu naturalidad.",
-      en: "Softens expression lines and refreshes your look while keeping you natural.",
-    },
-    details: {
-      es: "Relaja de forma puntual los músculos que marcan las líneas de expresión en frente, entrecejo y contorno de ojos. El resultado se ve a los pocos días y conserva tus gestos naturales.",
-      en: "Selectively relaxes the muscles that create expression lines on the forehead, brow and around the eyes. Results show within days and your natural expressions stay intact.",
-    },
+    key: "dental",
+    label: { es: "Odontología Estética", en: "Aesthetic Dentistry" },
+    short: { es: "Odontología", en: "Dentistry" },
+    items: [
+      {
+        icon: "Smile",
+        title: { es: "Diseño de Sonrisa", en: "Smile Design" },
+        desc: {
+          es: "Proyectamos la sonrisa que armoniza con tu rostro antes de empezar.",
+          en: "We plan the smile that harmonizes with your face before we begin.",
+        },
+        details: {
+          es: "Estudiamos tus proporciones faciales, el color de tu piel y la forma de tus labios para proyectar la sonrisa que te queda mejor. Verás una simulación antes de tocar un solo diente y decidimos juntas cada detalle.",
+          en: "We study your facial proportions, skin tone and lip shape to plan the smile that suits you best. You see a simulation before a single tooth is touched, and we decide every detail together.",
+        },
+      },
+      {
+        icon: "Gem",
+        title: {
+          es: "Carillas en Cerámica y Resina",
+          en: "Ceramic and Composite Veneers",
+        },
+        desc: {
+          es: "Cerámica o resina para corregir color, forma y tamaño de tus dientes.",
+          en: "Ceramic or composite to correct the color, shape and size of your teeth.",
+        },
+        details: {
+          es: "La cerámica ofrece el mayor brillo y resistencia a las manchas, y la resina permite un resultado más conservador en una sola cita. En la valoración te explicamos cuál conviene a tu caso y a tu presupuesto.",
+          en: "Ceramic gives the highest shine and stain resistance, while composite allows a more conservative result in a single visit. At your assessment we explain which one suits your case and your budget.",
+        },
+      },
+      {
+        icon: "Sparkles",
+        title: { es: "Clareamiento Dental", en: "Tooth Lightening" },
+        desc: {
+          es: "Recupera el tono natural de tus dientes de forma segura y controlada.",
+          en: "Bring back your teeth's natural shade safely and comfortably.",
+        },
+        details: {
+          es: "Aclaramos varios tonos con geles profesionales y controlamos la sensibilidad durante todo el proceso. Es el paso ideal antes de un evento o al inicio de un diseño de sonrisa.",
+          en: "We lighten several shades with professional gels and manage sensitivity throughout. It is the ideal step before an event, or at the start of a smile design.",
+        },
+      },
+      {
+        icon: "AlignHorizontalDistributeCenter",
+        title: { es: "Ortodoncia y Alineadores", en: "Orthodontics and Aligners" },
+        desc: {
+          es: "Brackets estéticos y alineadores transparentes para alinear tu mordida.",
+          en: "Aesthetic braces and clear aligners to align your bite.",
+        },
+        details: {
+          es: "Alineamos tus dientes con brackets estéticos o con alineadores transparentes, casi invisibles y removibles. Planificamos el recorrido completo para que sepas desde el principio cuánto tiempo tomará.",
+          en: "We align your teeth with aesthetic braces or clear aligners, nearly invisible and removable. We map the full path so you know from the start how long it will take.",
+        },
+      },
+      {
+        icon: "Anchor",
+        title: {
+          es: "Implantología y Rehabilitación Oral",
+          en: "Implantology and Oral Rehabilitation",
+        },
+        desc: {
+          es: "Reemplazo fijo de piezas ausentes y devolución completa de la función.",
+          en: "Fixed replacement of missing teeth and full restoration of function.",
+        },
+        details: {
+          es: "Reponemos la pieza perdida con un implante de titanio y una corona hecha a la medida de tu boca. Recuperas la mordida, el habla y la confianza para sonreír sin taparte. A cargo del Dr. José Sánchez.",
+          en: "We replace the missing tooth with a titanium implant and a crown made to match your mouth. You get back your bite, your speech and the confidence to smile openly. Led by Dr. José Sánchez.",
+        },
+      },
+      {
+        icon: "Microscope",
+        title: { es: "Endodoncia", en: "Endodontics" },
+        desc: {
+          es: "Tratamiento de conducto para salvar el diente y quitar el dolor.",
+          en: "Root canal treatment to save the tooth and end the pain.",
+        },
+        details: {
+          es: "Cuando la caries llega al nervio, el tratamiento de conducto conserva tu diente natural en lugar de extraerlo. Trabajamos con instrumentación de precisión para que sea cómodo y en las menos citas posibles. A cargo de la Dra. Valery Silvestre.",
+          en: "When decay reaches the nerve, root canal treatment keeps your natural tooth instead of removing it. We work with precision instrumentation to keep it comfortable and in as few visits as possible. Led by Dr. Valery Silvestre.",
+        },
+      },
+      {
+        icon: "Scissors",
+        title: { es: "Cirugía Bucal", en: "Oral Surgery" },
+        desc: {
+          es: "Extracciones, cordales y procedimientos quirúrgicos con protocolo seguro.",
+          en: "Extractions, wisdom teeth and surgical procedures under a safe protocol.",
+        },
+        details: {
+          es: "Extracción de cordales, dientes retenidos y cirugías previas a un implante, con anestesia bien controlada y un plan de recuperación claro. A cargo de la Dra. Zaynab Cartacio.",
+          en: "Wisdom teeth, impacted teeth and pre-implant surgery, with well controlled anesthesia and a clear recovery plan. Led by Dr. Zaynab Cartacio.",
+        },
+      },
+      {
+        icon: "Stethoscope",
+        title: { es: "Odontología General", en: "General Dentistry" },
+        desc: {
+          es: "Prevención, limpieza y salud bucal para toda la familia.",
+          en: "Prevention, cleaning and oral health for the whole family.",
+        },
+        details: {
+          es: "Limpiezas, resinas, tratamiento de caries y revisiones periódicas para toda la familia. La base de cualquier tratamiento estético es una boca sana.",
+          en: "Cleanings, fillings, cavity treatment and regular check-ups for the whole family. A healthy mouth is the foundation of any aesthetic treatment.",
+        },
+      },
+    ],
   },
   {
-    icon: "Wand2",
-    title: { es: "Rellenos con Ácido Hialurónico", en: "Hyaluronic Acid Fillers" },
-    desc: {
-      es: "Volumen, contorno e hidratación para devolver frescura a tu rostro.",
-      en: "Volume, contour and hydration to bring freshness back to your face.",
-    },
-    details: {
-      es: "Reponemos volumen donde el rostro lo ha perdido: pómulos, surcos, ojeras y mentón. Es una sustancia que tu cuerpo reconoce, y el resultado es inmediato y reversible.",
-      en: "We restore volume where the face has lost it: cheeks, folds, under-eyes and chin. It is a substance your body recognizes, and the result is immediate and reversible.",
-    },
+    key: "facial",
+    label: { es: "Armonización Facial", en: "Facial Harmonization" },
+    short: { es: "Armonización", en: "Harmonization" },
+    items: [
+      {
+        icon: "Syringe",
+        title: { es: "Toxina Botulínica", en: "Botulinum Toxin" },
+        desc: {
+          es: "Suaviza las líneas de expresión conservando tus gestos naturales.",
+          en: "Softens expression lines while keeping your natural gestures.",
+        },
+        details: {
+          es: "Relaja de forma puntual los músculos que marcan las líneas de la frente, el entrecejo y el contorno de los ojos. El resultado se ve a los pocos días y tu cara sigue siendo tu cara.",
+          en: "Selectively relaxes the muscles behind the lines on the forehead, brow and around the eyes. Results show within days and your face still looks like you.",
+        },
+      },
+      {
+        icon: "Flower2",
+        title: { es: "Relleno Labial", en: "Lip Filler" },
+        desc: {
+          es: "Ácido hialurónico para labios definidos, hidratados y proporcionales.",
+          en: "Hyaluronic acid for defined, hydrated, well proportioned lips.",
+        },
+        details: {
+          es: "Con ácido hialurónico definimos el borde, hidratamos y ajustamos la proporción entre el labio superior y el inferior. Buscamos labios que se vean tuyos, nunca rellenos de más. El resultado es inmediato y reversible.",
+          en: "With hyaluronic acid we define the border, hydrate, and adjust the proportion between upper and lower lip. The goal is lips that look like yours, never overfilled. The result is immediate and reversible.",
+        },
+      },
+      {
+        icon: "PenTool",
+        title: { es: "Proyección de Mentón", en: "Chin Projection" },
+        desc: {
+          es: "Ácido hialurónico para equilibrar el perfil y definir el óvalo facial.",
+          en: "Hyaluronic acid to balance your profile and define the facial oval.",
+        },
+        details: {
+          es: "Un mentón corto o poco proyectado desequilibra todo el perfil. Con ácido hialurónico damos la proyección justa para que el tercio inferior converse con la nariz y con los labios.",
+          en: "A short or under-projected chin throws the whole profile out of balance. With hyaluronic acid we give it the right projection so the lower third works with the nose and the lips.",
+        },
+      },
+      {
+        icon: "Wand2",
+        title: { es: "Rinomodelación", en: "Non-surgical Rhinoplasty" },
+        desc: {
+          es: "Corrige el perfil de la nariz con ácido hialurónico, sin cirugía.",
+          en: "Reshapes the nose profile with hyaluronic acid, no surgery.",
+        },
+        details: {
+          es: "Disimulamos el giba, elevamos la punta y alineamos el dorso con ácido hialurónico, en una sesión y sin quirófano. Es reversible, así que puedes verlo antes de pensar en algo definitivo.",
+          en: "We smooth the bump, lift the tip and align the bridge with hyaluronic acid, in one session and without an operating room. It is reversible, so you can see the result before considering anything permanent.",
+        },
+      },
+      {
+        icon: "HeartPulse",
+        title: { es: "Bioestimuladores de Colágeno", en: "Collagen Bio-stimulators" },
+        desc: {
+          es: "Hidroxiapatita de calcio y ácido poli-L-láctico para firmeza real.",
+          en: "Calcium hydroxyapatite and poly-L-lactic acid for real firmness.",
+        },
+        details: {
+          es: "En lugar de rellenar, estimulan a tu piel a producir su propio colágeno. Trabajamos con hidroxiapatita de calcio, de efecto más inmediato y tensor, y con ácido poli-L-láctico, de mejora progresiva y duradera. En la valoración elegimos el que mejor responde a tu piel.",
+          en: "Instead of filling, they prompt your skin to make its own collagen. We work with calcium hydroxyapatite, with a more immediate lifting effect, and with poly-L-lactic acid, whose improvement is gradual and long lasting. At your assessment we choose the one your skin responds to best.",
+        },
+      },
+    ],
   },
   {
-    icon: "Sparkles",
-    title: { es: "Armonización Orofacial", en: "Orofacial Harmonization" },
-    desc: {
-      es: "Equilibramos las proporciones de tu rostro para un resultado armónico y natural.",
-      en: "We balance your facial proportions for a harmonious, natural result.",
-    },
-    details: {
-      es: "Un plan que mira el rostro completo en vez de tratar una zona aislada. Combinamos los procedimientos necesarios para equilibrar proporciones y que todo converse con tu sonrisa.",
-      en: "A plan that looks at the whole face instead of treating one isolated area. We combine the procedures needed to balance proportions so everything works with your smile.",
-    },
-  },
-  {
-    icon: "Flower2",
-    title: { es: "Diseño de Labios", en: "Lip Design" },
-    desc: {
-      es: "Labios definidos, hidratados y proporcionales a tu rostro.",
-      en: "Defined, hydrated lips in proportion with your face.",
-    },
-    details: {
-      es: "Definimos el borde, hidratamos y ajustamos la proporción entre labio superior e inferior. Buscamos labios que se vean tuyos, no rellenos de más.",
-      en: "We define the border, hydrate, and adjust the proportion between upper and lower lip. The goal is lips that look like yours, never overfilled.",
-    },
-  },
-  {
-    icon: "HeartPulse",
-    title: { es: "Bioestimuladores de Colágeno", en: "Collagen Bio-stimulators" },
-    desc: {
-      es: "Estimulan tu propio colágeno para una piel firme y luminosa a largo plazo.",
-      en: "Stimulate your own collagen for firm, luminous skin over the long term.",
-    },
-    details: {
-      es: "En lugar de rellenar, estimulan a tu piel a producir su propio colágeno. La mejora aparece de forma gradual y la firmeza se sostiene durante meses.",
-      en: "Instead of filling, they prompt your skin to produce its own collagen. The improvement appears gradually and the firmness holds for months.",
-    },
-  },
-  {
-    icon: "Droplets",
-    title: { es: "Limpieza Facial & Skincare", en: "Facial Cleansing & Skincare" },
-    desc: {
-      es: "Higiene facial profunda y una rutina diseñada para tu tipo de piel.",
-      en: "Deep facial cleansing and a routine designed for your skin type.",
-    },
-    details: {
-      es: "Higiene profunda que retira impurezas y células muertas, seguida de activos según tu tipo de piel. Terminas con una rutina de casa hecha para ti, no genérica.",
-      en: "A deep cleanse that clears impurities and dead cells, followed by actives matched to your skin type. You leave with a home routine built for you, not a generic one.",
-    },
+    key: "cosmiatry",
+    label: { es: "Cosmiatría", en: "Skin Care" },
+    short: { es: "Cosmiatría", en: "Skin" },
+    items: [
+      {
+        icon: "Droplets",
+        title: { es: "Faciales", en: "Facials" },
+        desc: {
+          es: "Higiene profunda y activos escogidos para tu tipo de piel.",
+          en: "Deep cleansing and actives chosen for your skin type.",
+        },
+        details: {
+          es: "Limpieza profunda que retira impurezas y células muertas, seguida de activos según tu tipo de piel. Sales con una rutina de casa hecha para ti, no una genérica.",
+          en: "A deep cleanse that clears impurities and dead cells, followed by actives matched to your skin type. You leave with a home routine built for you, not a generic one.",
+        },
+      },
+      {
+        icon: "Grip",
+        title: { es: "Dermapen", en: "Dermapen" },
+        desc: {
+          es: "Microagujas que renuevan la piel y atenúan cicatrices y poros.",
+          en: "Microneedling that renews the skin and softens scars and pores.",
+        },
+        details: {
+          es: "Microperforaciones controladas que activan la reparación natural de la piel. Mejora la textura, las cicatrices de acné, los poros dilatados y las líneas finas, sesión tras sesión.",
+          en: "Controlled micro-channels that switch on the skin's own repair. It improves texture, acne scars, enlarged pores and fine lines, session after session.",
+        },
+      },
+      {
+        icon: "FlaskConical",
+        title: { es: "Mesoterapia Facial", en: "Facial Mesotherapy" },
+        desc: {
+          es: "Vitaminas y activos aplicados directamente donde la piel los necesita.",
+          en: "Vitamins and actives delivered straight to where the skin needs them.",
+        },
+        details: {
+          es: "Microinyecciones de vitaminas, minerales y ácido hialurónico no reticulado que hidratan desde dentro y devuelven luminosidad. Ideal para piel apagada, deshidratada o con fatiga.",
+          en: "Micro-injections of vitamins, minerals and non-cross-linked hyaluronic acid that hydrate from within and bring back glow. Ideal for dull, dehydrated or tired skin.",
+        },
+      },
+      {
+        icon: "Layers",
+        title: { es: "Peeling", en: "Chemical Peel" },
+        desc: {
+          es: "Renovación controlada para manchas, marcas y textura irregular.",
+          en: "Controlled renewal for spots, marks and uneven texture.",
+        },
+        details: {
+          es: "Exfoliación química graduada según tu piel y tu objetivo. Trabaja manchas, marcas de acné y textura irregular, y se planifica en sesiones para que la recuperación sea cómoda.",
+          en: "A chemical exfoliation graded to your skin and your goal. It works on pigmentation, acne marks and uneven texture, planned across sessions so recovery stays comfortable.",
+        },
+      },
+      {
+        icon: "Droplet",
+        title: {
+          es: "Plasma Rico en Plaquetas",
+          en: "Platelet Rich Plasma",
+        },
+        desc: {
+          es: "Tu propia sangre como estímulo regenerador, sin nada externo.",
+          en: "Your own blood as a regenerative stimulus, nothing external.",
+        },
+        details: {
+          es: "Tomamos una pequeña muestra de tu sangre, separamos el plasma rico en plaquetas y lo devolvemos a la piel. Como viene de ti, el riesgo de rechazo es mínimo y el estímulo de regeneración es real.",
+          en: "We take a small sample of your blood, separate the platelet rich plasma and return it to the skin. Because it comes from you, the risk of rejection is minimal and the regenerative stimulus is real.",
+        },
+      },
+      {
+        icon: "Dna",
+        title: { es: "PDRN de Salmón", en: "Salmon PDRN" },
+        desc: {
+          es: "Regeneración profunda, hidratación y reparación del tejido.",
+          en: "Deep regeneration, hydration and tissue repair.",
+        },
+        details: {
+          es: "Polinucleótidos de origen marino que reparan el tejido desde dentro, calman la inflamación y mejoran la calidad de la piel. Muy indicado para piel fina, ojeras y rostro cansado.",
+          en: "Marine polynucleotides that repair tissue from within, calm inflammation and improve skin quality. Well suited to thin skin, under-eye hollows and a tired face.",
+        },
+      },
+      {
+        icon: "Atom",
+        title: { es: "Exosomas", en: "Exosomes" },
+        desc: {
+          es: "La tecnología más reciente en regeneración y luminosidad.",
+          en: "The most recent technology in regeneration and glow.",
+        },
+        details: {
+          es: "Mensajeros celulares que le indican a tu piel cómo repararse. Se usan solos o después de dermapen y peeling para potenciar el resultado, con una mejora visible en luminosidad y firmeza.",
+          en: "Cellular messengers that tell your skin how to repair itself. Used alone or after dermapen and peels to amplify the result, with a visible gain in glow and firmness.",
+        },
+      },
+      {
+        icon: "Waves",
+        title: { es: "HIFU · Ultraformer III", en: "HIFU · Ultraformer III" },
+        desc: {
+          es: "Lifting sin cirugía con estimulación intensa de colágeno.",
+          en: "Non-surgical lifting with intense collagen stimulation.",
+        },
+        details: {
+          es: "Ultrasonido focalizado de alta intensidad que actúa en las capas profundas, las mismas que trabaja un lifting quirúrgico, sin cortes y sin reposo. Tensa el óvalo, el cuello y el contorno, y el colágeno sigue trabajando durante meses.",
+          en: "High intensity focused ultrasound that reaches the deep layers a surgical lift works on, with no cuts and no downtime. It tightens the jawline, neck and contour, and the collagen keeps working for months.",
+        },
+      },
+    ],
   },
 ];
 
@@ -336,7 +496,8 @@ export const TEAM: TeamMember[] = [
       es: "Especialista en estética dental y armonización facial",
       en: "Specialist in dental aesthetics and facial harmonization",
     },
-    match: ["sindy", "silvestre"],
+    // Two Silvestre doctors work here, so match her given name only.
+    match: ["sindy"],
   },
   {
     key: "melany-rosa",
@@ -367,6 +528,12 @@ export const TEAM: TeamMember[] = [
     name: "Sardis Carpio",
     role: { es: "Cosmiatra", en: "Skin care specialist" },
     match: ["sardis", "carpio"],
+  },
+  {
+    key: "valery-silvestre",
+    name: "Dra. Valery Silvestre",
+    role: { es: "Máster en Endodoncia", en: "Master in Endodontics" },
+    match: ["valery"],
   },
 ];
 
@@ -411,11 +578,9 @@ export const t = {
     eyebrow: { es: "Lo que hacemos", en: "What we do" },
     title: { es: "Tratamientos", en: "Treatments" },
     titleAccent: { es: "a tu medida", en: "made for you" },
-    dental: { es: "Odontología Estética", en: "Aesthetic Dentistry" },
-    skin: { es: "Armonización Facial", en: "Facial Harmonization" },
     subtitle: {
-      es: "Dos especialidades que trabajan juntas: tu sonrisa y la armonía de tu rostro.",
-      en: "Two specialties that work as one: your smile and the harmony of your face.",
+      es: "Tres áreas que trabajan juntas: tu sonrisa, la armonía de tu rostro y tu piel.",
+      en: "Three areas that work as one: your smile, the harmony of your face and your skin.",
     },
     cta: { es: "Consultar por WhatsApp", en: "Ask on WhatsApp" },
     hint: { es: "Toca un tratamiento para ver más", en: "Tap a treatment to see more" },
@@ -464,6 +629,10 @@ export const t = {
     subtitle: {
       es: "Especialistas que trabajan juntos para cuidar tu sonrisa, tu piel y la armonía de tu rostro.",
       en: "Specialists who work together to care for your smile, your skin and the harmony of your face.",
+    },
+    band: {
+      es: "Un equipo especializado, una sola visión de tu belleza.",
+      en: "A specialized team with a single vision of your beauty.",
     },
     book: { es: "Agendar", en: "Book" },
     /** {name} is replaced with the specialist before opening WhatsApp. */

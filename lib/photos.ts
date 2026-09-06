@@ -103,6 +103,10 @@ function getTeamPhotos(): Record<string, string> {
 
 export type SitePhotos = {
   hero: string | null;
+  /** Tighter crop of the same banner, framed for a phone. */
+  heroMobile: string | null;
+  /** Wide shot of the whole team, above the team cards. */
+  teamBand: string | null;
   /** Optional cinematic loop for the opening, in public/media/hero.mp4 */
   heroVideo: string | null;
   heroPoster: string | null;
@@ -139,6 +143,8 @@ export function getSitePhotos(): SitePhotos {
 
   return {
     hero: featured("hero"),
+    heroMobile: featured("hero-mobile"),
+    teamBand: featured("equipo"),
     heroVideo: heroVideo ? `/media/${encodeURIComponent(heroVideo)}` : null,
     heroPoster: featured("hero-poster"),
     doctor: featured("doctor"),
