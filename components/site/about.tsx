@@ -6,6 +6,9 @@ import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, IMAGES } from "@/lib/content";
 import { BadgeCheck, Heart, Award } from "lucide-react";
+import { Tilt } from "@/components/motion/tilt";
+import { Parallax } from "@/components/motion/parallax";
+import { RevealWords } from "@/components/motion/reveal-words";
 
 export function About() {
   const { lang } = useLang();
@@ -23,16 +26,22 @@ export function About() {
           <Reveal>
             <div className="relative w-full max-w-[19rem] sm:max-w-sm mx-auto md:mx-0">
               <div className="absolute -inset-4 rounded-[2.2rem] bg-gradient-to-tr from-gold-light/25 to-transparent blur-2xl" />
-              <div className="relative aspect-[2/3] rounded-[2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
-                <SmartImage
-                  src={photos.doctor}
-                  alt={t.about.title[lang]}
-                  className="h-full w-full"
-                  label="Dra. Silvestre"
-                />
-                {/* The clinic's portrait already carries her name and title,
-                    so no caption overlay here — it would just repeat it. */}
-              </div>
+              <Tilt max={5} lift={10} className="relative">
+                <div className="relative aspect-[2/3] rounded-[2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
+                  {/* The portrait drifts inside its frame as the section
+                      passes, which gives the crop some depth. */}
+                  <Parallax className="h-[118%] -mt-[9%]" distance={34}>
+                    <SmartImage
+                      src={photos.doctor}
+                      alt={t.about.title[lang]}
+                      className="h-full w-full"
+                      label="Dra. Silvestre"
+                    />
+                  </Parallax>
+                  {/* The clinic's portrait already carries her name and
+                      title, so no caption overlay here. */}
+                </div>
+              </Tilt>
             </div>
           </Reveal>
 
@@ -42,7 +51,7 @@ export function About() {
               {t.about.eyebrow[lang]}
             </span>
             <h2 className="mt-6 font-serif text-4xl md:text-5xl text-ink">
-              {t.about.title[lang]}
+              <RevealWords segments={[{ text: t.about.title[lang] }]} />
             </h2>
             <p className="mt-3 text-sm uppercase tracking-[0.25em] text-gold-deep">
               {t.about.role[lang]}

@@ -6,6 +6,9 @@ import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { t, waLink, TEAM, type TeamMember } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { Tilt } from "@/components/motion/tilt";
+import { Parallax } from "@/components/motion/parallax";
+import { RevealWords } from "@/components/motion/reveal-words";
 
 /** "Dra. Melany Rosa" -> "MR", used while a portrait is still missing. */
 function initials(name: string) {
@@ -31,37 +34,39 @@ function Member({ member, photo }: { member: TeamMember; photo?: string }) {
       rel="noopener noreferrer"
       className="group block text-center"
     >
-      <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-ivory ring-1 ring-gold/20 transition-all duration-500 group-hover:ring-gold/50 group-hover:shadow-[0_24px_50px_-30px_rgba(120,90,20,0.55)]">
-        {photo ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={photo}
-            alt={member.name}
-            loading="lazy"
-            // Portraits are framed head and shoulders, so anchoring the crop
-            // to the top keeps faces in the card at every width.
-            className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white to-[#f4efe3]">
-            <span className="text-gold-gradient font-serif text-4xl">
-              {initials(member.name)}
-            </span>
-          </div>
-        )}
-
-        {/* Always offered on touch, revealed on hover on a desktop. The wash
-            turns dark over a photo and gold over the cream placeholder. */}
-        <span
-          className={cn(
-            "pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1.5 bg-gradient-to-t to-transparent pb-3 pt-10 text-[11px] font-medium tracking-wide transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100",
-            photo ? "from-ink/75 text-white" : "from-gold/25 text-gold-deep"
+      <Tilt max={8} lift={10}>
+        <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-ivory ring-1 ring-gold/20 transition-shadow duration-500 group-hover:ring-gold/50 group-hover:shadow-[0_24px_50px_-30px_rgba(120,90,20,0.55)]">
+          {photo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={photo}
+              alt={member.name}
+              loading="lazy"
+              // Portraits are framed head and shoulders, so anchoring the crop
+              // to the top keeps faces in the card at every width.
+              className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white to-[#f4efe3]">
+              <span className="text-gold-gradient font-serif text-4xl">
+                {initials(member.name)}
+              </span>
+            </div>
           )}
-        >
-          <MessageCircle size={13} />
-          {t.team.book[lang]}
-        </span>
-      </div>
+
+          {/* Always offered on touch, revealed on hover on a desktop. The wash
+              turns dark over a photo and gold over the cream placeholder. */}
+          <span
+            className={cn(
+              "pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1.5 bg-gradient-to-t to-transparent pb-3 pt-10 text-[11px] font-medium tracking-wide transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100",
+              photo ? "from-ink/75 text-white" : "from-gold/25 text-gold-deep"
+            )}
+          >
+            <MessageCircle size={13} />
+            {t.team.book[lang]}
+          </span>
+        </div>
+      </Tilt>
 
       <h3 className="mt-4 font-serif text-base leading-tight text-ink transition-colors duration-300 group-hover:text-gold-deep md:text-lg">
         {member.name}
@@ -88,12 +93,14 @@ export function Team() {
             {/* The ratio belongs on the frame: an `aspect` class on the image
                 itself fights `h-full` and the band grew to a full screen. */}
             <div className="relative aspect-[5/4] overflow-hidden rounded-3xl ring-1 ring-gold/15 shadow-[0_40px_90px_-60px_rgba(60,45,10,0.7)] sm:aspect-[16/7]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photos.teamBand}
-                alt={t.team.eyebrow[lang]}
-                className="absolute inset-0 h-full w-full object-cover object-[center_22%]"
-              />
+              <Parallax className="absolute inset-0" distance={-34} scale={1.06}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photos.teamBand}
+                  alt={t.team.eyebrow[lang]}
+                  className="h-full w-full object-cover object-[center_22%]"
+                />
+              </Parallax>
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent" />
               <p className="absolute inset-x-0 bottom-0 p-5 font-serif text-lg leading-snug text-white md:p-9 md:text-2xl">
                 {t.team.band[lang]}
@@ -111,10 +118,15 @@ export function Team() {
             <span className="h-px w-8 bg-gold-deep/60" />
           </span>
           <h2 className="mt-6 font-serif text-4xl leading-tight text-ink md:text-5xl">
-            {t.team.title[lang]}{" "}
-            <span className="text-gold-gradient italic">
-              {t.team.titleAccent[lang]}
-            </span>
+            <RevealWords
+              segments={[
+                { text: t.team.title[lang] },
+                {
+                  text: t.team.titleAccent[lang],
+                  className: "text-gold-gradient italic",
+                },
+              ]}
+            />
           </h2>
           <p className="mt-5 text-lg text-ink/55">{t.team.subtitle[lang]}</p>
         </Reveal>

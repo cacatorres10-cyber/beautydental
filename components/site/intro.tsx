@@ -5,6 +5,9 @@ import { usePhotos } from "./photos-provider";
 import { Reveal } from "./reveal";
 import { SmartImage } from "./smart-image";
 import { t, STATS, IMAGES } from "@/lib/content";
+import { Parallax } from "@/components/motion/parallax";
+import { CountUp } from "@/components/motion/count-up";
+import { RevealWords } from "@/components/motion/reveal-words";
 
 export function Intro() {
   const { lang } = useLang();
@@ -20,7 +23,7 @@ export function Intro() {
               {t.intro.eyebrow[lang]}
             </span>
             <h2 className="mt-6 font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-ink">
-              {t.intro.title[lang]}
+              <RevealWords segments={[{ text: t.intro.title[lang] }]} step={45} />
             </h2>
             <p className="mt-8 text-lg text-ink/60 leading-relaxed max-w-xl">
               {t.intro.body[lang]}
@@ -30,7 +33,7 @@ export function Intro() {
               {STATS.map((s, i) => (
                 <Reveal key={i} delay={i * 90}>
                   <div className="text-gold-gradient font-serif text-3xl md:text-4xl font-semibold">
-                    {s.value}
+                    <CountUp value={s.value} />
                   </div>
                   <div className="mt-1 text-xs md:text-sm text-ink/55 leading-tight">
                     {s.label[lang]}
@@ -44,11 +47,13 @@ export function Intro() {
             <div className="relative">
               <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold-light/30 to-transparent blur-2xl" />
               <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden ring-1 ring-gold/20 shadow-2xl">
-                <SmartImage
-                  src={photos.intro}
-                  alt={t.intro.eyebrow[lang]}
-                  className="h-full w-full"
-                />
+                <Parallax className="h-[116%] -mt-[8%]" distance={-38}>
+                  <SmartImage
+                    src={photos.intro}
+                    alt={t.intro.eyebrow[lang]}
+                    className="h-full w-full"
+                  />
+                </Parallax>
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent" />
               </div>
               {/* floating badge */}

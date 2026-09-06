@@ -3,6 +3,7 @@
 import { InfiniteSlider } from "@/components/ui/infinite-slider-horizontal";
 import { SmartImage } from "./smart-image";
 import { Reveal } from "./reveal";
+import { RevealWords } from "@/components/motion/reveal-words";
 import { useLang } from "./language-provider";
 import { usePhotos } from "./photos-provider";
 import { t } from "@/lib/content";
@@ -40,7 +41,7 @@ export function Gallery() {
             <span className="h-px w-8 bg-gold-deep/60" />
           </span>
           <h2 className="mt-6 font-serif text-4xl md:text-5xl text-ink leading-tight">
-            {t.gallery.title[lang]}
+            <RevealWords segments={[{ text: t.gallery.title[lang] }]} />
           </h2>
           <p className="mt-5 text-lg text-ink/55">{t.gallery.body[lang]}</p>
         </Reveal>

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Play, Volume2, VolumeX } from "lucide-react";
 import { useLang } from "./language-provider";
 import { Reveal } from "./reveal";
+import { RevealWords } from "@/components/motion/reveal-words";
 import { t, VIDEO_CAPTIONS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -144,7 +145,7 @@ export function VideoTestimonials({ videos }: { videos: string[] }) {
             <span className="h-px w-8 bg-gold-deep/60" />
           </span>
           <h2 className="mt-6 font-serif text-4xl md:text-5xl text-ink leading-tight">
-            {t.testimonials.title[lang]}
+            <RevealWords segments={[{ text: t.testimonials.title[lang] }]} />
           </h2>
           <p className="mt-5 text-lg text-ink/55">{t.testimonials.body[lang]}</p>
         </Reveal>

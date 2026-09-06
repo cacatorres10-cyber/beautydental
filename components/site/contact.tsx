@@ -11,6 +11,8 @@ import {
 import { useLang } from "./language-provider";
 import { Reveal } from "./reveal";
 import { t, CONTACT, waLink } from "@/lib/content";
+import { Tilt } from "@/components/motion/tilt";
+import { RevealWords } from "@/components/motion/reveal-words";
 
 export function Contact() {
   const { lang } = useLang();
@@ -66,7 +68,7 @@ export function Contact() {
             <span className="h-px w-8 bg-gold-deep/60" />
           </span>
           <h2 className="mt-6 font-serif text-4xl md:text-5xl text-ink leading-tight">
-            {t.contact.title[lang]}
+            <RevealWords segments={[{ text: t.contact.title[lang] }]} />
           </h2>
           <p className="mt-5 text-lg text-ink/55">{t.contact.body[lang]}</p>
         </Reveal>
@@ -96,21 +98,23 @@ export function Contact() {
                 </>
               );
               return (
-                <Reveal key={i} delay={(i % 2) * 90}>
-                  {c.href ? (
-                    <a
-                      href={c.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-xl"
-                    >
-                      {inner}
-                    </a>
-                  ) : (
-                    <div className="flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6">
-                      {inner}
-                    </div>
-                  )}
+                <Reveal key={i} delay={(i % 2) * 90} className="h-full">
+                  <Tilt max={6} lift={6}>
+                    {c.href ? (
+                      <a
+                        href={c.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-gold/40 hover:shadow-xl"
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className="flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6">
+                        {inner}
+                      </div>
+                    )}
+                  </Tilt>
                 </Reveal>
               );
             })}

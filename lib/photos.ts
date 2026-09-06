@@ -109,6 +109,8 @@ export type SitePhotos = {
   teamBand: string | null;
   /** Optional cinematic loop for the opening, in public/media/hero.mp4 */
   heroVideo: string | null;
+  /** Same loop cropped for a phone, in public/media/hero-mobile.mp4 */
+  heroVideoMobile: string | null;
   heroPoster: string | null;
   doctor: string | null;
   intro: string | null;
@@ -137,15 +139,20 @@ export function getTestimonialVideos(): string[] {
 }
 
 export function getSitePhotos(): SitePhotos {
-  const heroVideo = readDir(path.join(process.cwd(), "public", "media"))
-    .filter((f) => VIDEO_EXTENSIONS.includes(path.extname(f).toLowerCase()))
-    .find((f) => path.parse(f).name.toLowerCase() === "hero");
+  const media = readDir(path.join(process.cwd(), "public", "media")).filter(
+    (f) => VIDEO_EXTENSIONS.includes(path.extname(f).toLowerCase())
+  );
+  const video = (baseName: string) => {
+    const hit = media.find((f) => path.parse(f).name.toLowerCase() === baseName);
+    return hit ? `/media/${encodeURIComponent(hit)}` : null;
+  };
 
   return {
     hero: featured("hero"),
     heroMobile: featured("hero-mobile"),
     teamBand: featured("equipo"),
-    heroVideo: heroVideo ? `/media/${encodeURIComponent(heroVideo)}` : null,
+    heroVideo: video("hero"),
+    heroVideoMobile: video("hero-mobile"),
     heroPoster: featured("hero-poster"),
     doctor: featured("doctor"),
     intro: featured("intro"),

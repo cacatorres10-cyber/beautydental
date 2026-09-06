@@ -5,6 +5,7 @@ import { useLang } from "./language-provider";
 import { usePhotos } from "./photos-provider";
 import { t, IMAGES, HERO_MODE, waLink } from "@/lib/content";
 import { MessageCircle, ArrowDown } from "lucide-react";
+import { Magnetic } from "@/components/motion/magnetic";
 
 export function Hero() {
   const { lang } = useLang();
@@ -21,7 +22,9 @@ export function Hero() {
       <ScrollExpandMedia
         mediaType={useVideo ? "video" : "image"}
         mediaSrc={useVideo ? photos.heroVideo! : photos.hero}
-        mediaSrcMobile={useVideo ? undefined : photos.heroMobile}
+        mediaSrcMobile={
+          useVideo ? photos.heroVideoMobile ?? undefined : photos.heroMobile
+        }
         posterSrc={photos.heroPoster ?? photos.hero}
         bgImageSrc={IMAGES.heroBg}
         title={t.hero.title[lang]}
@@ -37,19 +40,23 @@ export function Hero() {
             {t.hero.body[lang]}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={waLink(t.contact.waMessage[lang])}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold"
-            >
-              <MessageCircle size={18} />
-              {t.hero.primary[lang]}
-            </a>
-            <a href="#servicios" className="btn-ghost">
-              {t.hero.secondary[lang]}
-              <ArrowDown size={16} />
-            </a>
+            <Magnetic>
+              <a
+                href={waLink(t.contact.waMessage[lang])}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold"
+              >
+                <MessageCircle size={18} />
+                {t.hero.primary[lang]}
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#servicios" className="btn-ghost">
+                {t.hero.secondary[lang]}
+                <ArrowDown size={16} />
+              </a>
+            </Magnetic>
           </div>
         </div>
       </ScrollExpandMedia>

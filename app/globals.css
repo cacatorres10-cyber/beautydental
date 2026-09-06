@@ -101,6 +101,60 @@ body {
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-gold-deep;
   }
+
+  /* Headline words rise and sharpen one after another. No overflow clip
+     here on purpose: it would cut the descenders and the italic overhang of
+     the gold script. */
+  .reveal-words .rw-word {
+    display: inline-block;
+  }
+  .reveal-words .rw-inner {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.42em);
+    filter: blur(7px);
+    transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity, filter;
+  }
+  .reveal-words.is-visible .rw-inner {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* A slow gold light drifting behind the opening. */
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(6%, 5%, 0) scale(1.18);
+    opacity: 0.85;
+  }
+}
+.aurora {
+  animation: aurora 18s ease-in-out infinite;
+}
+.aurora-slow {
+  animation: aurora 26s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-words .rw-inner {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  .aurora,
+  .aurora-slow {
+    animation: none;
+  }
 }
 
 @keyframes shimmer {

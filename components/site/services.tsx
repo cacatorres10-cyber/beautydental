@@ -37,6 +37,8 @@ import {
   type Lang,
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { Tilt } from "@/components/motion/tilt";
+import { RevealWords } from "@/components/motion/reveal-words";
 
 const ICONS: Record<IconName, LucideIcon> = {
   Sparkles,
@@ -80,15 +82,16 @@ function ServiceCard({
   const Icon = ICONS[service.icon];
 
   return (
-    <Reveal delay={(index % 3) * 90}>
-      <div
-        className={cn(
-          "group h-full rounded-2xl border bg-white transition-all duration-300",
-          open
-            ? "border-gold/50 shadow-[0_24px_50px_-32px_rgba(184,145,47,0.55)]"
-            : "border-ink/8 shadow-[0_16px_40px_-36px_rgba(0,0,0,0.5)] hover:border-gold/40 hover:-translate-y-1"
-        )}
-      >
+    <Reveal delay={(index % 3) * 90} className="h-full">
+      <Tilt max={6} lift={8}>
+        <div
+          className={cn(
+            "group h-full rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300",
+            open
+              ? "border-gold/50 shadow-[0_24px_50px_-32px_rgba(184,145,47,0.55)]"
+              : "border-ink/8 shadow-[0_16px_40px_-36px_rgba(0,0,0,0.5)] hover:border-gold/40"
+          )}
+        >
         <button
           type="button"
           onClick={onToggle}
@@ -151,7 +154,8 @@ function ServiceCard({
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      </Tilt>
     </Reveal>
   );
 }
@@ -177,10 +181,15 @@ export function Services() {
             <span className="h-px w-8 bg-gold-deep/60" />
           </span>
           <h2 className="mt-5 font-serif text-3xl leading-tight text-ink md:text-5xl">
-            {t.services.title[lang]}{" "}
-            <span className="text-gold-gradient italic">
-              {t.services.titleAccent[lang]}
-            </span>
+            <RevealWords
+              segments={[
+                { text: t.services.title[lang] },
+                {
+                  text: t.services.titleAccent[lang],
+                  className: "text-gold-gradient italic",
+                },
+              ]}
+            />
           </h2>
           <p className="mt-4 text-base text-ink/55">
             {t.services.subtitle[lang]}

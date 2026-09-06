@@ -83,7 +83,7 @@ export const IMAGES = {
  * "video" opens with the loop in `public/media/hero.mp4`. Both files stay in
  * the repository, so switching the opening is a one-word change here.
  * --------------------------------------------------------------------- */
-export const HERO_MODE: "image" | "video" = "image";
+export const HERO_MODE: "image" | "video" = "video";
 
 /** Stock photos tried, in order, while a local file is still missing. */
 export const IMAGE_FALLBACKS: Record<string, string[]> = {

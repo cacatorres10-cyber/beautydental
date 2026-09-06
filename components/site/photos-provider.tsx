@@ -14,6 +14,7 @@ export type ResolvedPhotos = {
   heroMobile: string;
   teamBand: string | null;
   heroVideo: string | null;
+  heroVideoMobile: string | null;
   heroPoster: string | null;
   doctor: string;
   intro: string;
@@ -54,6 +55,7 @@ export function PhotosProvider({
     heroMobile: photos.heroMobile ?? photos.hero ?? IMAGES.heroMedia,
     teamBand: photos.teamBand,
     heroVideo: photos.heroVideo,
+    heroVideoMobile: photos.heroVideoMobile ?? photos.heroVideo,
     heroPoster: photos.heroPoster,
     doctor: photos.doctor ?? IMAGES.doctor,
     intro: photos.intro ?? IMAGES.intro,

@@ -95,9 +95,12 @@ const ScrollExpandMedia = ({
   const mediaWidth = `min(${rawWidth}px, 96vw)`;
   // A phone runs out of width almost at once, so there the frame also turns
   // from a landscape card into a tall one: that is where the growth is felt.
+  // The banner photo takes a tall crop; the video is a close-up already, so
+  // it only squares off rather than going properly vertical.
   const phoneFrame = isMobile && mediaSrcMobile;
+  const phoneEnd = mediaType === "video" ? 1.15 : 0.8;
   const mediaAspect = phoneFrame
-    ? `${(1.34 - progress * 0.54).toFixed(3)} / 1`
+    ? `${(1.34 - progress * (1.34 - phoneEnd)).toFixed(3)} / 1`
     : "16 / 9";
 
   const textShift = progress * (isMobile ? 60 : 46);
@@ -126,6 +129,24 @@ const ScrollExpandMedia = ({
               alt=""
               aria-hidden="true"
               className="h-full w-full object-cover"
+            />
+            {/* Two slow lights drifting behind everything, so the ivory
+                ground is never quite still. */}
+            <div
+              aria-hidden="true"
+              className="aurora pointer-events-none absolute -left-1/4 top-[-20%] h-[80vh] w-[80vh] rounded-full blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(230,200,120,0.42), transparent 65%)",
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="aurora-slow pointer-events-none absolute -right-1/4 bottom-[-25%] h-[70vh] w-[70vh] rounded-full blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(246,228,210,0.6), transparent 65%)",
+              }}
             />
           </div>
 

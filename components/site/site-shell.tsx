@@ -15,6 +15,7 @@ import { CtaBand } from "./cta-band";
 import { Contact } from "./contact";
 import { Footer } from "./footer";
 import { WhatsappFab } from "./whatsapp-fab";
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import type { SitePhotos } from "@/lib/photos";
 
 export function SiteShell({
@@ -27,6 +28,7 @@ export function SiteShell({
   return (
     <LanguageProvider>
       <PhotosProvider photos={photos}>
+        <SmoothScroll />
         <div className="noise-overlay" aria-hidden="true" />
         <Navbar />
         <main>
