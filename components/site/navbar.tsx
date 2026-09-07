@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "./logo";
 import { LanguageToggle } from "./language-toggle";
 import { useLang } from "./language-provider";
-import { t, waLink, CONTACT } from "@/lib/content";
+import { t, waLink, CONTACT, HERO_MODE } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -21,6 +21,9 @@ export function Navbar() {
   const { lang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // The full screen banner puts a dark photo behind the bar, so at the top
+  // of that page the ink lettering would be invisible.
+  const overDark = HERO_MODE === "banner" && !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -40,7 +43,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-5 md:px-6 flex items-center justify-between gap-4">
         <a href="#top" aria-label="Beauty Dental & Skin" className="shrink-0">
-          <Logo tone="dark" />
+          <Logo tone={overDark ? "light" : "dark"} />
         </a>
 
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -48,7 +51,12 @@ export function Navbar() {
             <a
               key={l.id}
               href={`#${l.id}`}
-              className="text-sm text-ink/70 hover:text-gold-deep transition-colors duration-300"
+              className={cn(
+                "text-sm transition-colors duration-300",
+                overDark
+                  ? "text-white/85 hover:text-gold-light"
+                  : "text-ink/70 hover:text-gold-deep"
+              )}
             >
               {t.nav[l.key][lang]}
             </a>
@@ -67,7 +75,12 @@ export function Navbar() {
           </a>
           <button
             type="button"
-            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 text-ink"
+            className={cn(
+              "lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-300",
+              overDark
+                ? "border-white/25 bg-white/10 text-white"
+                : "border-ink/10 text-ink"
+            )}
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >

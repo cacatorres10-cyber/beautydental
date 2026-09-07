@@ -69,7 +69,10 @@ for (const [tag, src] of scriptTags) {
 
 // The payload also asks the browser to preload the stylesheet that is now
 // inlined; point it at nothing so it cannot 404.
-html = html.replace(/\/_next\/static\/css\/[^"\\]+\.css/g, "data:text/css,");
+// The payload also names the chunks, and React preloads each one against
+// its own /_next/ prefix. Those requests 404 in this file, harmlessly: the
+// bundles are already inlined above. Rewriting the names only moves the 404
+// somewhere stranger, since the prefix is added either way.
 
 // ---- Preloads point at files that will not exist; drop them ----
 html = html.replace(/<link[^>]+rel="(preload|prefetch|preconnect|dns-prefetch)"[^>]*>/g, "");
@@ -81,9 +84,11 @@ const assets = new Set();
 for (const m of html.matchAll(/["'(\\](\/(?:images|media|brand)\/[^"')\\]+)/g)) {
   assets.add(m[1].replace(/#.*$/, ""));
 }
-// With an image opening, the video loop is never rendered: leaving its ~1MB
-// out of the page costs nothing.
-if (!html.includes('<video src="/media/hero.mp4')) assets.delete("/media/hero.mp4");
+// With a photo opening, the video loops are never rendered: leaving those
+// megabytes out of the page costs nothing.
+for (const clip of ["/media/hero.mp4", "/media/hero-mobile.mp4"]) {
+  if (!html.includes(`<video src="${clip}`)) assets.delete(clip);
+}
 
 let embedded = 0;
 const skipped = [];

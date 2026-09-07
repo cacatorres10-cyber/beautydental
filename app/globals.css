@@ -125,6 +125,36 @@ body {
   }
 }
 
+/* The full screen banner drifts and breathes so the still photo does not
+   read as a screenshot. */
+@keyframes kenburns {
+  0%,
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.14) translate3d(-1.2%, -1%, 0);
+  }
+}
+.kenburns {
+  animation: kenburns 28s ease-in-out infinite;
+}
+
+@keyframes scroll-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(9px);
+    opacity: 0.25;
+  }
+}
+.scroll-dot {
+  animation: scroll-dot 1.7s ease-in-out infinite;
+}
+
 /* A slow gold light drifting behind the opening. */
 @keyframes aurora {
   0%,
@@ -152,7 +182,9 @@ body {
     transition: none;
   }
   .aurora,
-  .aurora-slow {
+  .aurora-slow,
+  .kenburns,
+  .scroll-dot {
     animation: none;
   }
 }

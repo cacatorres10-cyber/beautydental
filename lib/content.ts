@@ -79,11 +79,13 @@ export const IMAGES = {
 };
 
 /* ------------------------------ Hero mode -------------------------------
- * "image" opens with the team banner in `public/images/hero.webp`, and
- * "video" opens with the loop in `public/media/hero.mp4`. Both files stay in
- * the repository, so switching the opening is a one-word change here.
+ * "banner" fills the screen with the team photo, darkened, and the headline
+ * over it. "video" and "image" instead open with a small card that grows as
+ * the visitor scrolls, playing `public/media/hero.mp4` or showing
+ * `public/images/hero.webp`. Every file stays in the repository, so
+ * switching the opening is a one-word change here.
  * --------------------------------------------------------------------- */
-export const HERO_MODE: "image" | "video" = "video";
+export const HERO_MODE: "banner" | "image" | "video" = "banner";
 
 /** Stock photos tried, in order, while a local file is still missing. */
 export const IMAGE_FALLBACKS: Record<string, string[]> = {
