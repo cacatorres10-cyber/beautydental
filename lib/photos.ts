@@ -115,6 +115,18 @@ function brandFile(baseName: string): string | null {
   return match ? `/brand/${encodeURIComponent(match)}` : null;
 }
 
+export type BrandMarks = {
+  /** The full stacked lockup. */
+  full: string | null;
+  fullLight: string | null;
+  /** The monogram alone, for a horizontal lockup. */
+  mark: string | null;
+  markLight: string | null;
+  /** The wordmark and tagline alone. */
+  word: string | null;
+  wordLight: string | null;
+};
+
 export type SitePhotos = {
   hero: string | null;
   /** Tighter crop of the same banner, framed for a phone. */
@@ -134,10 +146,8 @@ export type SitePhotos = {
   avatars: string[];
   /** Team member key -> photo path, for whoever has a photo uploaded. */
   team: Record<string, string>;
-  /** The clinic's own logo file, once one is dropped in public/brand/. */
-  logo: string | null;
-  /** A version for dark backgrounds, if they have one. */
-  logoLight: string | null;
+  /** The clinic's own artwork, once it is dropped in public/brand/. */
+  brand: BrandMarks;
 };
 
 /* ------------------------------- Videos -------------------------------- */
@@ -179,7 +189,13 @@ export function getSitePhotos(): SitePhotos {
     gallery: folder("gallery"),
     avatars: folder("avatars"),
     team: getTeamPhotos(),
-    logo: brandFile("logo"),
-    logoLight: brandFile("logo-light"),
+    brand: {
+      full: brandFile("logo"),
+      fullLight: brandFile("logo-light"),
+      mark: brandFile("logo-mark"),
+      markLight: brandFile("logo-mark-light"),
+      word: brandFile("logo-word"),
+      wordLight: brandFile("logo-word-light"),
+    },
   };
 }

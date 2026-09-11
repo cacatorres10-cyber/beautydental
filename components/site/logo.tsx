@@ -6,33 +6,63 @@ import { usePhotos } from "./photos-provider";
 /**
  * The clinic's own logo, with a typographic stand-in behind it.
  *
- * Drop `logo.svg` (or .png / .webp) into `public/brand/` and it is used
- * everywhere automatically. The artwork's lettering is black, so a bar
- * sitting on a dark photo needs `logo-light.*` alongside it; without one,
- * those places keep the stand-in, which already reads on dark.
+ * The artwork is a stacked lockup, monogram over wordmark over tagline. At
+ * the height of a navbar the whole stack shrinks until the lettering cannot
+ * be read, so up there the pieces are set side by side instead; the footer,
+ * which has room, gets the artwork as drawn. `scripts/make-logo.mjs` cuts
+ * the pieces and the white-lettered versions out of `public/brand/logo.png`.
  *
  * tone="dark"  -> for LIGHT backgrounds (ink text)
  * tone="light" -> for DARK backgrounds (ivory text)
  */
 export function Logo({
   tone = "dark",
+  variant = "lockup",
   className,
 }: {
   tone?: "dark" | "light";
+  /** "lockup" sets the pieces in a row; "stacked" uses the artwork as drawn. */
+  variant?: "lockup" | "stacked";
   className?: string;
 }) {
-  const photos = usePhotos();
+  const { brand } = usePhotos();
   const textColor = tone === "dark" ? "text-ink" : "text-white";
   const subColor = tone === "dark" ? "text-ink/55" : "text-white/60";
 
-  const file = tone === "light" ? photos.logoLight : photos.logo;
-  if (file && (tone === "dark" || photos.logoLight)) {
+  const light = tone === "light";
+  const full = light ? brand.fullLight : brand.full;
+  const mark = light ? brand.markLight : brand.mark;
+  const word = light ? brand.wordLight : brand.word;
+
+  if (variant === "stacked" && full) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={file}
+        src={full}
         alt="Beauty Dental & Skin"
-        className={cn("h-10 w-auto md:h-12", className)}
+        className={cn("h-20 w-auto md:h-24", className)}
+      />
+    );
+  }
+
+  if (mark && word) {
+    return (
+      <span className={cn("inline-flex items-center gap-2.5 md:gap-3", className)}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={mark} alt="" aria-hidden="true" className="h-10 w-auto md:h-12" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={word} alt="Beauty Dental & Skin" className="h-5 w-auto md:h-6" />
+      </span>
+    );
+  }
+
+  if (full) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={full}
+        alt="Beauty Dental & Skin"
+        className={cn("h-12 w-auto md:h-14", className)}
       />
     );
   }

@@ -33,7 +33,8 @@ export const metadata: Metadata = {
     locale: "es_DO",
   },
   icons: {
-    icon: "/brand/favicon.svg",
+    icon: "/brand/favicon.png",
+    apple: "/brand/favicon.png",
   },
 };
 

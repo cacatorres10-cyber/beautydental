@@ -1,27 +1,32 @@
-El logo de Beauty Dental & Skin va aquí.
+El logo de Beauty Dental & Skin.
 
-Sube el archivo con el nombre "logo" y se usa en toda la página
-automáticamente, en el menú de arriba y en el pie:
+Archivos en esta carpeta
+------------------------
+  logo.png              el logo tal como lo enviaron (recortado)
+  logo-light.png        el mismo, con las letras en blanco
+  logo-mark.png         solo el monograma BD y su arco
+  logo-mark-light.png   el monograma, para fondo oscuro
+  logo-word.png         solo "Beauty Dental & Skin" y la línea de abajo
+  logo-word-light.png   lo mismo, para fondo oscuro
+  favicon.png           el monograma, para la pestaña del navegador
 
-    logo.svg      (lo mejor: se ve nítido en cualquier pantalla)
-    logo.png      también sirve
-    logo.webp     también sirve
+Por qué hay tantos
+------------------
+El logo está en tres pisos: el monograma arriba, el nombre en medio y la
+línea pequeña abajo. A la altura de una barra de menú ese bloque entero se
+encoge tanto que las letras ya no se leen. Por eso en el menú se usan las
+piezas una al lado de la otra, y en el pie de página, donde hay espacio, el
+logo completo tal como está dibujado.
 
-Fondo oscuro
-------------
-El logo tiene las letras en negro, así que encima de la foto oscura del
-inicio no se leería. Si tienen una versión en blanco o dorada, súbela como:
+Las letras del logo son negras, así que encima de la foto oscura del inicio
+no se leerían. Por eso existen las versiones "-light", con las letras en
+blanco y el dorado del monograma intacto.
 
-    logo-light.svg   (o .png / .webp)
+Si cambian el logo
+------------------
+Sube el archivo nuevo como `logo.png` (o .svg / .webp) y luego se vuelven a
+generar todas las piezas con:
 
-Mientras no exista, en esos lugares se muestra el logo escrito que ya está
-en la página, que sí se lee sobre oscuro.
+    node scripts/make-logo.mjs
 
-Notas
------
-- Si el archivo tiene fondo transparente, mejor (PNG o SVG).
-- No hace falta cambiar nada en el código: basta con subir el archivo.
-- Se muestra a 40px de alto en el móvil y 48px en el ordenador, así que
-  cualquier tamaño grande funciona.
-
-Cuando subas el logo, este archivo se puede borrar.
+Si no puedes ejecutarlo, avísame y lo hago yo: solo sube el archivo.

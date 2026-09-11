@@ -23,7 +23,7 @@ export function Footer() {
       <div className="container mx-auto px-5 md:px-6 pt-20 pb-10 relative z-10">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Logo tone="light" />
+            <Logo tone="light" variant="stacked" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
               {t.footer.tagline[lang]}
             </p>

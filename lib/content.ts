@@ -676,8 +676,8 @@ export const t = {
     location: { es: "Ubicación", en: "Location" },
     hours: { es: "Horario", en: "Hours" },
     hoursValue: {
-      es: "Citas de lunes a viernes · 9:00 a 18:00",
-      en: "Appointments Monday to Friday · 9:00 to 18:00",
+      es: "Citas de lunes a viernes, 9:00 a 18:00 · Sábados solo emergencias",
+      en: "Appointments Monday to Friday, 9:00 to 18:00 · Saturdays emergencies only",
     },
     waMessage: {
       es: "¡Hola! Me gustaría agendar una cita en Beauty Dental & Skin.",
