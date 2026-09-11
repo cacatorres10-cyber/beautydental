@@ -43,7 +43,16 @@ Fotos verticales. Se recortan en 3:4 desde arriba, así la cara siempre queda
 dentro del cuadro. A quien le falte la foto se le muestran sus iniciales en
 dorado. Los nombres y los cargos se editan en `lib/content.ts` (`TEAM`).
 
-## 4. Testimonios (opcional)
+## 4. El logo
+
+👉 El logo va en la carpeta **`public/brand/`**, con el nombre `logo`
+(`logo.svg`, `logo.png` o `logo.webp`). Se usa solo, en el menú y en el pie.
+
+Como las letras del logo son negras, encima de la foto oscura del inicio no
+se leería: si tienen una versión en blanco o dorada, súbela como
+`logo-light.svg` y se usa ahí. Hay más detalle en `public/brand/LEER-ME.txt`.
+
+## 5. Testimonios (opcional)
 
 Fotos de pacientes en la carpeta **`avatars/`**, cualquier nombre.
 Si no pones ninguna, se muestran las iniciales.

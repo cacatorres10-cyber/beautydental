@@ -1,9 +1,15 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { usePhotos } from "./photos-provider";
 
 /**
- * Typographic placeholder logo for Beauty Dental & Skin.
- * Replace with the real logo (drop an SVG/PNG in /public/brand and swap this
- * component for an <img>) when it's available.
+ * The clinic's own logo, with a typographic stand-in behind it.
+ *
+ * Drop `logo.svg` (or .png / .webp) into `public/brand/` and it is used
+ * everywhere automatically. The artwork's lettering is black, so a bar
+ * sitting on a dark photo needs `logo-light.*` alongside it; without one,
+ * those places keep the stand-in, which already reads on dark.
  *
  * tone="dark"  -> for LIGHT backgrounds (ink text)
  * tone="light" -> for DARK backgrounds (ivory text)
@@ -15,8 +21,21 @@ export function Logo({
   tone?: "dark" | "light";
   className?: string;
 }) {
+  const photos = usePhotos();
   const textColor = tone === "dark" ? "text-ink" : "text-white";
   const subColor = tone === "dark" ? "text-ink/55" : "text-white/60";
+
+  const file = tone === "light" ? photos.logoLight : photos.logo;
+  if (file && (tone === "dark" || photos.logoLight)) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={file}
+        alt="Beauty Dental & Skin"
+        className={cn("h-10 w-auto md:h-12", className)}
+      />
+    );
+  }
 
   return (
     <span className={cn("inline-flex items-center gap-3", className)}>

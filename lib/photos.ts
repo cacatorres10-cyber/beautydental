@@ -101,6 +101,20 @@ function getTeamPhotos(): Record<string, string> {
   return photos;
 }
 
+/**
+ * The real logo, read from `public/brand/`. Drop `logo.svg` (or .png/.webp)
+ * in there and the typographic stand-in is replaced everywhere. A
+ * `logo-light.*` alongside it is used wherever the bar sits on a dark photo,
+ * since the artwork's lettering is black.
+ */
+function brandFile(baseName: string): string | null {
+  const dir = path.join(process.cwd(), "public", "brand");
+  const match = readDir(dir)
+    .filter((file) => [".svg", ...IMAGE_EXTENSIONS].includes(path.extname(file).toLowerCase()))
+    .find((file) => path.parse(file).name.toLowerCase() === baseName);
+  return match ? `/brand/${encodeURIComponent(match)}` : null;
+}
+
 export type SitePhotos = {
   hero: string | null;
   /** Tighter crop of the same banner, framed for a phone. */
@@ -120,6 +134,10 @@ export type SitePhotos = {
   avatars: string[];
   /** Team member key -> photo path, for whoever has a photo uploaded. */
   team: Record<string, string>;
+  /** The clinic's own logo file, once one is dropped in public/brand/. */
+  logo: string | null;
+  /** A version for dark backgrounds, if they have one. */
+  logoLight: string | null;
 };
 
 /* ------------------------------- Videos -------------------------------- */
@@ -161,5 +179,7 @@ export function getSitePhotos(): SitePhotos {
     gallery: folder("gallery"),
     avatars: folder("avatars"),
     team: getTeamPhotos(),
+    logo: brandFile("logo"),
+    logoLight: brandFile("logo-light"),
   };
 }

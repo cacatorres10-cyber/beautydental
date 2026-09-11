@@ -1,0 +1,27 @@
+El logo de Beauty Dental & Skin va aquí.
+
+Sube el archivo con el nombre "logo" y se usa en toda la página
+automáticamente, en el menú de arriba y en el pie:
+
+    logo.svg      (lo mejor: se ve nítido en cualquier pantalla)
+    logo.png      también sirve
+    logo.webp     también sirve
+
+Fondo oscuro
+------------
+El logo tiene las letras en negro, así que encima de la foto oscura del
+inicio no se leería. Si tienen una versión en blanco o dorada, súbela como:
+
+    logo-light.svg   (o .png / .webp)
+
+Mientras no exista, en esos lugares se muestra el logo escrito que ya está
+en la página, que sí se lee sobre oscuro.
+
+Notas
+-----
+- Si el archivo tiene fondo transparente, mejor (PNG o SVG).
+- No hace falta cambiar nada en el código: basta con subir el archivo.
+- Se muestra a 40px de alto en el móvil y 48px en el ordenador, así que
+  cualquier tamaño grande funciona.
+
+Cuando subas el logo, este archivo se puede borrar.

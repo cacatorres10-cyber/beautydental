@@ -24,6 +24,8 @@ export type ResolvedPhotos = {
   avatars: string[];
   /** Team member key -> photo, empty until their portraits are uploaded. */
   team: Record<string, string>;
+  logo: string | null;
+  logoLight: string | null;
   /** True once real gallery photos are in place (hides the "sample" note). */
   hasRealGallery: boolean;
 };
@@ -64,6 +66,8 @@ export function PhotosProvider({
     gallery: photos.gallery.length ? photos.gallery : IMAGES.gallery,
     avatars: photos.avatars.length ? photos.avatars : IMAGES.avatars,
     team,
+    logo: photos.logo,
+    logoLight: photos.logoLight ?? photos.logo,
     hasRealGallery: photos.gallery.length > 0,
   };
 

@@ -20,9 +20,11 @@ export const CONTACT = {
     es: "Odontología Estética y Armonización Facial",
     en: "Aesthetic Dentistry & Facial Harmonization",
   },
-  phones: ["+1 (809) 349-0774", "+1 (849) 260-8631"],
+  // The WhatsApp line comes first: the previous number had no WhatsApp on it
+  // and every button on the site points at this one.
+  phones: ["+1 (829) 343-5307", "+1 (809) 349-0774", "+1 (849) 260-8631"],
   // wa.me number in international format, digits only.
-  whatsapp: "18093490774",
+  whatsapp: "18293435307",
   email: "Dra.ssilvestre@gmail.com",
   instagram: "https://www.instagram.com/beautydentalskin",
   instagramHandle: "@beautydentalskin",
@@ -674,8 +676,8 @@ export const t = {
     location: { es: "Ubicación", en: "Location" },
     hours: { es: "Horario", en: "Hours" },
     hoursValue: {
-      es: "Lun – Vie: 9:00 – 18:00 · Sáb: 9:00 – 14:00",
-      en: "Mon – Fri: 9:00 – 18:00 · Sat: 9:00 – 14:00",
+      es: "Citas de lunes a viernes · 9:00 a 18:00",
+      en: "Appointments Monday to Friday · 9:00 to 18:00",
     },
     waMessage: {
       es: "¡Hola! Me gustaría agendar una cita en Beauty Dental & Skin.",
