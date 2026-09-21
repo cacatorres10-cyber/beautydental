@@ -104,14 +104,14 @@ for (const asset of [...assets].sort((a, b) => b.length - a.length)) {
 // The live site embeds Google Maps; here it would render blank, so the
 // preview shows a card that opens the same map in a new tab instead.
 html = html.replace(
-  /<iframe[^>]*src="(https:\/\/www\.google\.com\/maps[^"]*)"[^>]*><\/iframe>/g,
-  (_m, src) =>
-    `<a href="${src.replace("&output=embed", "")}" target="_blank" rel="noopener noreferrer" ` +
-    `style="display:flex;align-items:center;justify-content:center;min-height:22rem;height:100%;` +
+  /<iframe[^>]*src="(https:\/\/(?:www\.google\.com\/maps|maps\.google\.com\/maps)[^"]*)"[^>]*><\/iframe>/g,
+  () =>
+    `<a href="https://maps.google.com/?cid=6131664497986445775" target="_blank" rel="noopener noreferrer" ` +
+    `style="display:flex;align-items:center;justify-content:center;min-height:20rem;height:100%;` +
     `background:linear-gradient(135deg,#f2ece0,#e6dcc4);color:#2a2620;text-decoration:none;` +
     `font:600 14px system-ui,sans-serif;letter-spacing:.02em;text-align:center;padding:24px">` +
     `<span><span style="display:block;font-size:30px;line-height:1">&#128205;</span>` +
-    `<span style="display:block;margin-top:10px">La Romana, Rep. Dominicana</span>` +
+    `<span style="display:block;margin-top:10px">Beauty Dental &amp; Skin &middot; La Romana</span>` +
     `<span style="display:block;margin-top:6px;font-weight:500;color:#b8912f">Abrir en Google Maps</span>` +
     `</span></a>`
 );
