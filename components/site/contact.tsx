@@ -6,11 +6,19 @@ import {
   Mail,
   Instagram,
   MapPin,
+  Navigation,
   Clock,
 } from "lucide-react";
 import { useLang } from "./language-provider";
 import { Reveal } from "./reveal";
-import { t, CONTACT, waLink } from "@/lib/content";
+import {
+  t,
+  CONTACT,
+  waLink,
+  mapsPlaceUrl,
+  mapsDirectionsUrl,
+  mapsEmbedUrl,
+} from "@/lib/content";
 import { Tilt } from "@/components/motion/tilt";
 import { RevealWords } from "@/components/motion/reveal-words";
 
@@ -47,9 +55,7 @@ export function Contact() {
       icon: MapPin,
       label: t.contact.location[lang],
       value: `${CONTACT.city}, ${CONTACT.country[lang]}`,
-      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        CONTACT.mapsQuery
-      )}`,
+      href: mapsDirectionsUrl,
     },
     {
       icon: Clock,
@@ -120,20 +126,39 @@ export function Contact() {
             })}
           </div>
 
-          {/* Map */}
-          <Reveal delay={120} className="min-h-[22rem]">
-            <div className="h-full overflow-hidden rounded-3xl ring-1 ring-ink/8 shadow-xl">
+          {/* Map. The pin is their own listing, not a search for the name. */}
+          <Reveal delay={120} className="flex min-h-[22rem] flex-col gap-4">
+            <div className="flex-1 overflow-hidden rounded-3xl ring-1 ring-ink/8 shadow-xl">
               <iframe
-                title="Beauty Dental & Skin · La Romana"
-                src={`https://www.google.com/maps?q=${encodeURIComponent(
-                  CONTACT.mapsQuery
-                )}&output=embed`}
+                title={`${CONTACT.brand} · ${CONTACT.city}`}
+                src={mapsEmbedUrl}
                 width="100%"
                 height="100%"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="min-h-[22rem] w-full grayscale-[0.2] contrast-[1.05]"
+                className="min-h-[20rem] w-full grayscale-[0.2] contrast-[1.05]"
               />
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <a
+                href={mapsDirectionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold flex-1"
+              >
+                <Navigation size={17} />
+                {t.map.directions[lang]}
+              </a>
+              <a
+                href={mapsPlaceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost flex-1"
+              >
+                <MapPin size={17} />
+                {t.map.open[lang]}
+              </a>
             </div>
           </Reveal>
         </div>

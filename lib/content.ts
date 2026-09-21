@@ -30,9 +30,53 @@ export const CONTACT = {
   instagramHandle: "@beautydentalskin",
   city: "La Romana",
   country: { es: "República Dominicana", en: "Dominican Republic" },
-  // Used for the Google Maps embed. Refine with the exact address when known.
   mapsQuery: "La Romana, República Dominicana",
+  /**
+   * Their own listing on Google Maps. The cid is the place id carried in the
+   * listing's own link (0x…:0x55180c5fbc5b21cf in hexadecimal), and it opens
+   * the business page itself, reviews and all, rather than a search for the
+   * name. The coordinates come from the same link and are what the directions
+   * route to, so nobody is sent to a similarly named place.
+   */
+  maps: {
+    cid: "6131664497986445775",
+    lat: 18.4350879,
+    lng: -68.9677482,
+  },
 };
+
+/** Their Google listing: photos, hours and the reviews people left. */
+export const mapsPlaceUrl = `https://maps.google.com/?cid=${CONTACT.maps.cid}`;
+
+/** Opens the visitor's maps app with the route already set. */
+export const mapsDirectionsUrl =
+  "https://www.google.com/maps/dir/?api=1&destination=" +
+  `${CONTACT.maps.lat}%2C${CONTACT.maps.lng}`;
+
+/** The pin inside the page. The label rides along with the coordinates. */
+export const mapsEmbedUrl =
+  `https://maps.google.com/maps?q=${CONTACT.maps.lat},${CONTACT.maps.lng}` +
+  `+(${encodeURIComponent(CONTACT.brand)})&z=16&hl=es&output=embed`;
+
+/* ---------------------------- Google reviews ----------------------------
+ * What patients wrote on their Google listing. These have to be copied
+ * across by hand, exactly as they were written: reviews are other people's
+ * words and nothing here may be invented or paraphrased. While the list is
+ * empty the section simply sends people to the listing to read them there.
+ * --------------------------------------------------------------------- */
+export type GoogleReview = {
+  name: string;
+  /** 1 to 5. */
+  rating: number;
+  /** However Google shows it, e.g. "hace 2 meses". */
+  date: string;
+  text: string;
+};
+
+export const GOOGLE_REVIEWS: GoogleReview[] = [];
+
+/** Shown beside the reviews, once the real figures are known. */
+export const GOOGLE_RATING: { score: number; count: number } | null = null;
 
 export const waLink = (text: string) =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
@@ -653,6 +697,29 @@ export const t = {
       en: "Real stories, told by the people already living their new smile.",
     },
     play: { es: "Reproducir", en: "Play" },
+  },
+  reviews: {
+    eyebrow: { es: "Reseñas de Google", en: "Google reviews" },
+    title: { es: "Lo que escriben", en: "What they write" },
+    titleAccent: { es: "en Google", en: "on Google" },
+    body: {
+      es: "Opiniones reales de pacientes, publicadas en nuestra ficha de Google.",
+      en: "Real patient opinions, posted on our Google listing.",
+    },
+    cta: { es: "Ver todas en Google", en: "Read them all on Google" },
+    write: { es: "Deja tu reseña", en: "Leave a review" },
+    empty: {
+      es: "Las opiniones de nuestros pacientes están en nuestra ficha de Google. Ábrela para leerlas todas.",
+      en: "Our patients' opinions live on our Google listing. Open it to read them all.",
+    },
+  },
+  map: {
+    directions: { es: "Cómo llegar", en: "Get directions" },
+    open: { es: "Ver en Google Maps", en: "Open in Google Maps" },
+    hint: {
+      es: "Toca para abrir la ruta en tu teléfono.",
+      en: "Tap to open the route on your phone.",
+    },
   },
   ctaBand: {
     title: { es: "¿Lista para tu mejor sonrisa?", en: "Ready for your best smile?" },

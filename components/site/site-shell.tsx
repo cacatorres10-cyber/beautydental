@@ -11,6 +11,7 @@ import { Gallery } from "./gallery";
 import { About } from "./about";
 import { Team } from "./team";
 import { VideoTestimonials } from "./video-testimonials";
+import { Reviews } from "./reviews";
 import { CtaBand } from "./cta-band";
 import { Contact } from "./contact";
 import { Footer } from "./footer";
@@ -43,6 +44,9 @@ export function SiteShell({
           <Gallery />
           <Intro />
           <VideoTestimonials videos={testimonialVideos} />
+          {/* What patients wrote on Google, right after what they said on
+              camera. */}
+          <Reviews />
           <CtaBand />
           <Contact />
         </main>
