@@ -26,6 +26,28 @@ npm run start
 
 ---
 
+## 🌐 Publicarlo en internet (deploy)
+
+El sitio **no es un archivo HTML suelto**: es una aplicación Next.js que genera
+el HTML al construirse. Por eso no basta con subir un archivo, hay que
+publicarlo en un servicio que ejecute `npm run build`.
+
+El camino más corto es **Vercel**, que es de quienes hacen Next.js y reconoce
+el proyecto sin configurar nada:
+
+1. Entrar en [vercel.com](https://vercel.com) con la cuenta de GitHub.
+2. **Add New → Project** y elegir el repositorio `beautydental`.
+3. Dejar todo como viene (framework: Next.js) y pulsar **Deploy**.
+4. Sale una dirección tipo `beautydental.vercel.app`, ya funcionando.
+
+A partir de ahí, **cada push al repositorio se publica solo**: no hay que
+repetir nada. Para un dominio propio, se añade en **Settings → Domains** del
+proyecto en Vercel.
+
+La rama `main` existe para esto: Vercel publica desde ella por defecto.
+
+---
+
 ## 🗂️ Estructura
 
 ```
