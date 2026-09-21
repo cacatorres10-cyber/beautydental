@@ -12,6 +12,7 @@ export type ResolvedPhotos = {
   hero: string;
   /** Phone framing of the banner; falls back to the wide one. */
   heroMobile: string;
+  heroBlur: string | null;
   teamBand: string | null;
   heroVideo: string | null;
   heroVideoMobile: string | null;
@@ -54,6 +55,7 @@ export function PhotosProvider({
   const resolved: ResolvedPhotos = {
     hero: photos.hero ?? IMAGES.heroMedia,
     heroMobile: photos.heroMobile ?? photos.hero ?? IMAGES.heroMedia,
+    heroBlur: photos.heroBlur,
     teamBand: photos.teamBand,
     heroVideo: photos.heroVideo,
     heroVideoMobile: photos.heroVideoMobile ?? photos.heroVideo,

@@ -3,6 +3,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useMotionOk } from "./use-motion-ok";
+import { onScrollFrame } from "./scroll-store";
 
 /**
  * Drifts its content against the page as the section passes, which gives a
@@ -31,31 +32,37 @@ export function Parallax({
     if (!motionOk) return;
     const el = ref.current;
     if (!el) return;
-    let frame = 0;
+
+    // Reading a rect forces layout, so an element nobody can see does not
+    // get read at all: the observer simply takes it out of the rotation.
+    let onScreen = false;
+    const watcher = new IntersectionObserver(
+      (entries) => {
+        onScreen = entries.some((entry) => entry.isIntersecting);
+        if (!onScreen) el.style.transform = "";
+      },
+      { rootMargin: "200px 0px" }
+    );
+    watcher.observe(el);
 
     const update = () => {
-      frame = 0;
+      if (!onScreen) return;
       const box = el.getBoundingClientRect();
       const view = window.innerHeight;
-      if (box.bottom < -200 || box.top > view + 200) return;
       // -1 entering from the bottom, 0 centred, 1 leaving at the top.
-      const centre = (box.top + box.height / 2 - view / 2) / (view / 2 + box.height / 2);
+      const centre =
+        (box.top + box.height / 2 - view / 2) / (view / 2 + box.height / 2);
       const shift = (centre * distance).toFixed(2);
-      const zoom = scale ? ` scale(${(1 + (scale - 1) * (1 - Math.abs(centre))).toFixed(4)})` : "";
+      const zoom = scale
+        ? ` scale(${(1 + (scale - 1) * (1 - Math.abs(centre))).toFixed(4)})`
+        : "";
       el.style.transform = `translate3d(0, ${shift}px, 0)${zoom}`;
     };
 
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    const stop = onScrollFrame(update);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) cancelAnimationFrame(frame);
+      stop();
+      watcher.disconnect();
       el.style.transform = "";
     };
   }, [motionOk, distance, scale]);

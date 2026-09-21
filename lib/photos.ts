@@ -131,6 +131,8 @@ export type SitePhotos = {
   hero: string | null;
   /** Tighter crop of the same banner, framed for a phone. */
   heroMobile: string | null;
+  /** A thumbnail of the banner, stretched as a cheap blurred ground. */
+  heroBlur: string | null;
   /** Wide shot of the whole team, above the team cards. */
   teamBand: string | null;
   /** Optional cinematic loop for the opening, in public/media/hero.mp4 */
@@ -178,6 +180,7 @@ export function getSitePhotos(): SitePhotos {
   return {
     hero: featured("hero"),
     heroMobile: featured("hero-mobile"),
+    heroBlur: featured("hero-blur"),
     teamBand: featured("equipo"),
     heroVideo: video("hero"),
     heroVideoMobile: video("hero-mobile"),

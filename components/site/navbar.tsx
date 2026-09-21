@@ -7,6 +7,7 @@ import { LanguageToggle } from "./language-toggle";
 import { useLang } from "./language-provider";
 import { t, waLink, CONTACT, HERO_MODE } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { onScrollFrame } from "@/components/motion/scroll-store";
 
 const links = [
   { id: "servicios", key: "services" as const },
@@ -25,19 +26,20 @@ export function Navbar() {
   // of that page the ink lettering would be invisible.
   const overDark = HERO_MODE === "banner" && !scrolled && !open;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useEffect(
+    () => onScrollFrame(() => setScrolled(window.scrollY > 40)),
+    []
+  );
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "py-3 bg-white/85 backdrop-blur-md border-b border-ink/5 shadow-[0_8px_30px_-20px_rgba(0,0,0,0.35)]"
+          // Opaque rather than blurred: a backdrop-filter across the full
+          // width is repainted on every scrolled frame, and at 96% white
+          // nobody can tell the blur is gone.
+          ? "py-3 bg-white/96 border-b border-ink/5 shadow-[0_8px_30px_-20px_rgba(0,0,0,0.35)]"
           : "py-5 bg-transparent"
       )}
     >

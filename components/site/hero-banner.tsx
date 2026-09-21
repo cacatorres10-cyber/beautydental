@@ -47,23 +47,31 @@ export function HeroBanner() {
             that keeps the clinic's gold in the picture. */}
         <div className="absolute inset-0 bg-ink/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/25 to-ink/85" />
+        {/* Plain, not soft-light: a blended full-screen layer is another
+            full-page recomposite on every frame. */}
         <div
-          className="absolute inset-0 mix-blend-soft-light"
+          className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(1100px 700px at 70% 25%, rgba(230,200,120,0.55), transparent 65%)",
+              "radial-gradient(1100px 700px at 70% 25%, rgba(230,200,120,0.22), transparent 65%)",
           }}
         />
       </div>
 
       {/* Phone: the same photo out of focus, as a ground for the band. */}
       <div className="absolute inset-0 sm:hidden">
+        {/* A 56px thumbnail stretched over the screen: the blur comes from
+            the browser scaling it up, so there is no filter to paint. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={photos.hero}
+          src={photos.heroBlur ?? photos.hero}
           alt=""
           aria-hidden="true"
-          className="h-full w-full scale-125 object-cover opacity-40 blur-2xl"
+          className={
+            photos.heroBlur
+              ? "h-full w-full scale-110 object-cover opacity-40"
+              : "h-full w-full scale-125 object-cover opacity-40 blur-2xl"
+          }
         />
         <div className="absolute inset-0 bg-ink/70" />
         <div
@@ -92,7 +100,7 @@ export function HeroBanner() {
                 // No leading space: the reveal already puts one between
                 // every pair of words, segment boundaries included.
                 text: restOfTitle.join(" "),
-                className: "text-gold-gradient italic",
+                className: "text-gold-gradient shimmer italic",
               },
             ]}
             step={70}

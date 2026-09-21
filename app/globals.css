@@ -43,7 +43,10 @@ body {
 }
 
 @layer components {
-  /* Shimmering gold text used for accents / headings */
+  /* Gold lettering. The sweep is opt-in through `.shimmer` and used in one
+     place: animating background-position on background-clip:text repaints
+     the glyphs every frame, and with a gradient word in most headlines that
+     alone accounted for most of the dropped frames on a slow phone. */
   .text-gold-gradient {
     background: linear-gradient(
       100deg,
@@ -58,6 +61,9 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    background-position: 30% center;
+  }
+  .text-gold-gradient.shimmer {
     animation: shimmer 8s linear infinite;
   }
 
@@ -116,6 +122,10 @@ body {
     transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
       filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Promoted only while it still has somewhere to go. Left on permanently
+     this hands every word on the page its own layer, for nothing. */
+  .reveal-words:not(.is-visible) .rw-inner {
     will-change: transform, opacity, filter;
   }
   .reveal-words.is-visible .rw-inner {
@@ -184,7 +194,8 @@ body {
   .aurora,
   .aurora-slow,
   .kenburns,
-  .scroll-dot {
+  .scroll-dot,
+  .text-gold-gradient.shimmer {
     animation: none;
   }
 }
@@ -198,13 +209,16 @@ body {
   }
 }
 
-/* Subtle film grain overlay (very light on white) */
+/* Subtle film grain overlay (very light on white).
+   No blend mode on purpose: a fixed, full-viewport layer set to multiply
+   makes the browser recomposite everything under it on every scrolled
+   frame, and on this page that alone was most of the dropped frames.
+   Plain opacity looks the same here and composites once. */
 .noise-overlay {
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.025;
-  mix-blend-mode: multiply;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
