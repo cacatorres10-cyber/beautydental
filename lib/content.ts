@@ -68,12 +68,37 @@ export type GoogleReview = {
   name: string;
   /** 1 to 5. */
   rating: number;
-  /** However Google shows it, e.g. "hace 2 meses". */
-  date: string;
+  /**
+   * Month and year rather than Google's "3 weeks ago": a relative date
+   * copied into a page keeps saying "3 weeks" forever and quietly becomes
+   * a lie. These are worked back from when the reviews were read, 22
+   * September 2026.
+   */
+  date: Record<Lang, string>;
+  /** Exactly as written, in the language it was written in. */
   text: string;
 };
 
-export const GOOGLE_REVIEWS: GoogleReview[] = [];
+export const GOOGLE_REVIEWS: GoogleReview[] = [
+  {
+    name: "Dalia Zorrilla",
+    rating: 5,
+    date: { es: "septiembre 2026", en: "September 2026" },
+    text: "20/10. My mom underwent a full mouth implant procedure with Doctors Sindy Silvestre and Jose Sanchez and I cannot thank them enough for such a successful and seamless process. For reference, I live in Punta Cana and did all the research for implants and the doctors I consulted here were either way more expensive or I didn't feel comfortable enough service wise. I was recommended to Sindy from a friend who had just gotten his smile done and the results were amazing. From the get go, my mom felt very comfortable and secure with them. Not only are they professional but they also care deeply about their work and the patient (quite literally they're perfectionists!) My mom's procedure was extremely complicated, and we appreciated how they took the time to fully break down each step, letting us know timelines, cost, recovery processes etc. I also appreciated the fact that they made us feel truly like family, being transparent with us every step of the way. To anyone who's interested in a similar procedure I'd say just simply have a consultation with them and make your decision from there, because I 100% would recommend. My mom is extremely happy with the results, quite blown away really, it's very comfortable and her confidence has returned. Thank you Sindy and Jose for making this possible! Love you guys\n\nAnd also big shoutout to all the other office staff and the receptionist who were always so welcoming and accommodating, we appreciate you all.",
+  },
+  {
+    name: "bibster1705",
+    rating: 5,
+    date: { es: "enero 2026", en: "January 2026" },
+    text: "The personalized service at Beauty Dental & Skin is superb. I've done several procedures with Dr.Sindy Silvestre and its been great. From bracers to beauty care, she's the best! 100% recommended! Ps: also speaks English.",
+  },
+  {
+    name: "Adalberto Rodriguez",
+    rating: 5,
+    date: { es: "enero 2026", en: "January 2026" },
+    text: "I needed emergency surgery and Dr. Sindy Silvestre was able to accommodate last second. I was extremely happy with the level of care and professionalism from Dr. Silvestre. Couldn't recommend this Dental Clinic enough.",
+  },
+];
 
 /** Shown beside the reviews, once the real figures are known. */
 export const GOOGLE_RATING: { score: number; count: number } | null = null;
@@ -712,6 +737,8 @@ export const t = {
       es: "Las opiniones de nuestros pacientes están en nuestra ficha de Google. Ábrela para leerlas todas.",
       en: "Our patients' opinions live on our Google listing. Open it to read them all.",
     },
+    more: { es: "Leer más", en: "Read more" },
+    less: { es: "Leer menos", en: "Read less" },
   },
   map: {
     directions: { es: "Cómo llegar", en: "Get directions" },

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Star, ExternalLink, PenLine } from "lucide-react";
 import { useLang } from "./language-provider";
 import { Reveal } from "./reveal";
@@ -12,6 +13,7 @@ import {
 } from "@/lib/content";
 import { Tilt } from "@/components/motion/tilt";
 import { RevealWords } from "@/components/motion/reveal-words";
+import { cn } from "@/lib/utils";
 
 /** The Google "G", drawn rather than loaded, since nothing external loads. */
 function GoogleG({ size = 18 }: { size?: number }) {
@@ -45,9 +47,9 @@ function Stars({ rating, size = 15 }: { rating: number; size?: number }) {
           key={n}
           size={size}
           className={
-            n <= Math.round(rating)
-              ? "fill-gold-mid text-gold-mid"
-              : "text-ink/20"
+            // `gold-mid` is not in the palette: the class did nothing and the
+            // stars came out hollow. The DEFAULT gold is that shade.
+            n <= Math.round(rating) ? "fill-gold text-gold" : "text-ink/20"
           }
         />
       ))}
@@ -56,6 +58,12 @@ function Stars({ rating, size = 15 }: { rating: number; size?: number }) {
 }
 
 function ReviewCard({ review }: { review: GoogleReview }) {
+  const { lang } = useLang();
+  const [open, setOpen] = useState(false);
+  // One of these runs to three paragraphs. Left whole it would tower over
+  // the others, so a long one is folded until someone asks for the rest.
+  const long = review.text.length > 340;
+
   const initials = review.name
     .split(/\s+/)
     .slice(0, 2)
@@ -74,7 +82,9 @@ function ReviewCard({ review }: { review: GoogleReview }) {
             <span className="block truncate text-sm font-medium text-ink">
               {review.name}
             </span>
-            <span className="block text-xs text-ink/45">{review.date}</span>
+            <span className="block text-xs text-ink/45">
+              {review.date[lang]}
+            </span>
           </span>
           <GoogleG />
         </div>
@@ -83,10 +93,26 @@ function ReviewCard({ review }: { review: GoogleReview }) {
           <Stars rating={review.rating} />
         </span>
 
-        {/* Their words, exactly as written. */}
-        <p className="mt-3 text-[13px] leading-relaxed text-ink/70 md:text-sm">
+        {/* Their words, exactly as written. `pre-line` keeps the blank line
+            between paragraphs that one of them left. */}
+        <p
+          className={cn(
+            "mt-3 whitespace-pre-line text-[13px] leading-relaxed text-ink/70 md:text-sm",
+            long && !open && "line-clamp-[9]"
+          )}
+        >
           {review.text}
         </p>
+
+        {long ? (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="mt-3 self-start text-xs font-medium text-gold-deep underline-offset-4 hover:underline"
+          >
+            {open ? t.reviews.less[lang] : t.reviews.more[lang]}
+          </button>
+        ) : null}
       </div>
     </Tilt>
   );
@@ -134,8 +160,11 @@ export function Reviews() {
 
         {hasReviews ? (
           <div className="mt-12 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {/* No `h-full` here: a percentage height on a grid item resolves
+                against the row, so opening the long review stretched the
+                other two into columns of white space. */}
             {GOOGLE_REVIEWS.map((review, i) => (
-              <Reveal key={i} delay={(i % 3) * 90} className="h-full">
+              <Reveal key={i} delay={(i % 3) * 90}>
                 <ReviewCard review={review} />
               </Reveal>
             ))}
